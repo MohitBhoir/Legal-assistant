@@ -12,7 +12,7 @@ export default function Navbar() {
         {/* Logo */}
         <div className="text-4xl font-bold text-white">
           <Link href="/">
-             Logo
+            Logo
           </Link>
         </div>
 
@@ -50,19 +50,18 @@ export default function Navbar() {
         <div
           className={`flex-col md:flex md:flex-row md:items-center md:gap-8 absolute md:static top-16 left-0 w-full md:w-auto transition-all ease-in-out mx-3
           bg-gray-800 bg-opacity-70 backdrop-blur-sm rounded-lg md:backdrop-blur-none 
-          md:bg-transparent duration-300 ${
-            isOpen ? 'flex' : 'hidden'
-          }`}
+          md:bg-transparent duration-300 ${isOpen ? 'flex' : 'hidden'
+            }`}
         >
           <div className={`flex ${isOpen && 'grid grid-cols-1 md:grid-cols-2'} gap-4 items-center justify-center text-center w-full px-2 py-2`}>
             <Link href="/" className="block px-4 py-2 text-xl text-white md:inline
              hover:text-cyan-200 hover:text-3xl transition-all easy-in-out delay-100">
-            Home</Link>
+              Home</Link>
             <Link href="/about" className="block px-4 py-2 text-white md:inline text-xl hover:text-cyan-200 hover:text-3xl transition-all easy-in-out delay-100">About</Link>
-            <Link href="/services"
-            className="block px-4 py-2 text-xl text-white md:inline hover:text-cyan-200 hover:text-3xl transition-all easy-in-out delay-100">Services</Link>
+            <Link href="/templates"
+              className="block px-4 py-2 text-xl text-white md:inline hover:text-cyan-200 hover:text-3xl transition-all easy-in-out delay-100">Templates</Link>
             <Link href="/lawyer"
-            className="block px-4 py-2 text-xl text-white md:inline hover:text-cyan-200 hover:text-3xl transition-all easy-in-out delay-100">Lawyer</Link>
+              className="block px-4 py-2 text-xl text-white md:inline hover:text-cyan-200 hover:text-3xl transition-all easy-in-out delay-100">Lawyer</Link>
             <div className="text-center block md:hidden">
               <Link href="#get-started" className="inline-block px-4 py-2 bg-blue-800 text-white rounded-full hover:text-blue-800 hover:bg-white">Get Started</Link>
             </div>

@@ -4,7 +4,7 @@ import Navbar from './components/navbar'
 const Hero = () => {
   return (
     <div>
-      <Navbar/>
+      {/* <Navbar/> */}
       <div
         className="h-screen flex items-center justify-center bg-cover bg-center relative text-center"
         style={{ backgroundImage: "url('/images/aibg.jpg')" }}

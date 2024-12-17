@@ -9,8 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "docxtemplater": "^3.55.6",
     "flowbite-react": "^0.10.2",
+    "jspdf": "^2.5.2",
     "next": "15.1.0",
+    "pdf-lib": "^1.17.1",
+    "pizzip": "^3.1.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
