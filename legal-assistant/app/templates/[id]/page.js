@@ -1,7 +1,8 @@
 import React from "react";
 // Import all the form components
-import LeaseForm from "@/app/components/LeaseForm";
 import LeaseNewForm from "@/app/components/LeaseNewForm";
+import NameChangeForm from "@/app/components/NameChange";
+import PropertySale from "@/app/components/PropertySale";
 // import DeclarationForm from "./DeclarationForm";
 // import PropertyForm from "./PropertyForm";
 // import WillComponent from "./WillComponent";
@@ -14,8 +15,8 @@ const Template = async ({ params }) => {
     <>
       <div className="mt-[8rem] container mx-auto px-4">
         {templateName === 'lease' && <LeaseNewForm />}
-        {templateName === 'name-change' && <LeaseNewForm />}
-        {templateName === 'property' && <LeaseNewForm />}
+        {templateName === 'name-change' && <NameChangeForm />}
+        {templateName === 'property' && <PropertySale />}
         {templateName === 'will' && <LeaseNewForm />}
 
       </div>

@@ -4,10 +4,16 @@ import Link from 'next/link';
 export default function RegTemplate() {
   const features = [
     {
-      image: '/images/will.png', // Corrected path for Next.js
-      heading: 'Will Agreement',
+      image: '/images/lease.png',
+      heading: 'Lease',
       buttonText: 'Get Started',
-      link: 'will',
+      link: 'lease',
+    },
+    {
+      image: '/images/lease.png',
+      heading: 'Lease',
+      buttonText: 'Get Started',
+      link: 'lease',
     },
     {
       image: '/images/lease.png',
@@ -35,7 +41,7 @@ export default function RegTemplate() {
         <h1 className="mb-8 text-3xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">
           Explore Our Features
         </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 justify-center">
           {features.map((feature, index) => (
             <div
               key={index}
