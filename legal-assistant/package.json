@@ -14,6 +14,7 @@
     "firebase": "^11.1.0",
     "flowbite-react": "^0.10.2",
     "jspdf": "^2.5.2",
+    "mongoose": "^8.9.2",
     "next": "^15.1.2",
     "pdf-lib": "^1.17.1",
     "pizzip": "^3.1.7",
