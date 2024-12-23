@@ -1,11 +1,50 @@
-import React from 'react'
+'use client';
+
+import React,{useState} from 'react'
 import Navbar from './components/navbar'
 
 
 const Hero = () => {
+   const testimonials = [
+    {
+      name: 'John Doe',
+      email: 'john.doe@example.com',
+      stars: 5,
+      review: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, ea, libero sint illum obcaecati culpa quaerat aliquam soluta repellat accusamus accusantium enim cupiditate. Earum, omnis id esse neque aperiam debitis accusantium tempora quod reprehenderit doloribus quasi, praesentium tenetur voluptatum placeat, dolore voluptate. Numquam molestiae atque error, ab ducimus itaque quo!',
+    },
+    {
+      name: 'Jane Smith',
+      email: 'jane.smith@example.com',
+      stars: 4,
+      review: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, ea, libero sint illum obcaecati culpa quaerat aliquam soluta repellat accusamus accusantium enim cupiditate. Earum, omnis id esse neque aperiam debitis accusantium tempora quod reprehenderit doloribus quasi, praesentium tenetur voluptatum placeat, dolore voluptate. Numquam molestiae atque error, ab ducimus itaque quo!',
+    },
+    {
+      name: 'Alice Brown',
+      email: 'alice.brown@example.com',
+      stars: 5,
+      review: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, ea, libero sint illum obcaecati culpa quaerat aliquam soluta repellat accusamus accusantium enim cupiditate. Earum, omnis id esse neque aperiam debitis accusantium tempora quod reprehenderit doloribus quasi, praesentium tenetur voluptatum placeat, dolore voluptate. Numquam molestiae atque error, ab ducimus itaque quo!',
+    },
+    {
+      name: 'Mark Wilson',
+      email: 'mark.wilson@example.com',
+      stars: 3,
+      review: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, ea, libero sint illum obcaecati culpa quaerat aliquam soluta repellat accusamus accusantium enim cupiditate. Earum, omnis id esse neque aperiam debitis accusantium tempora quod reprehenderit doloribus quasi, praesentium tenetur voluptatum placeat, dolore voluptate. Numquam molestiae atque error, ab ducimus itaque quo!',
+    },
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length);
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
+  };
+
   return (
     <div>
-      {/* <Navbar/> */}
+      <Navbar/>
       <div
         className="h-screen flex items-center justify-center bg-cover bg-center relative text-center"
         style={{ backgroundImage: "url('/images/aibg.jpg')" }}
@@ -43,6 +82,69 @@ const Hero = () => {
           </div>
         </div>
       </section>
+      {/* Testimonials Carousel */}
+      <section className="py-12 bg-black bg-opacity-30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-2xl md:text-4xl font-bold text-white mb-8">What Our Users Say</h2>
+          <div className="relative">
+            <div className="bg-white bg-opacity-70 shadow-md rounded-md p-6 backdrop-blur-md mx-auto max-w-2xl">
+              <h3 className="text-lg font-semibold">{testimonials[currentIndex].name}</h3>
+              <p className="text-sm text-gray-600">{testimonials[currentIndex].email}</p>
+              <p className="text-yellow-500">
+                {'★'.repeat(testimonials[currentIndex].stars)}
+                {'☆'.repeat(5 - testimonials[currentIndex].stars)}
+              </p>
+              <p className="mt-4">{testimonials[currentIndex].review}</p>
+            </div>
+            <button
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full"
+              onClick={handlePrev}
+            >
+              &#8592;
+            </button>
+            <button
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full"
+              onClick={handleNext}
+            >
+              &#8594;
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-6 bg-black bg-opacity-50 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="hidden md:block">
+            <h3 className="text-lg font-bold">About Us</h3>
+            <p className="mt-2 text-sm">
+              We provide the best solutions to help you achieve your goals. Our team is dedicated to ensuring your success.
+            </p>
+          </div>
+          <div>
+            <h3 className="text-lg font-bold">Contact Us</h3>
+            <p className="mt-2 text-sm">Email: support@example.com</p>
+            <p className="text-sm">Phone: +1 234 567 890</p>
+            <p className="text-sm">Address: 123 Main Street, Anytown, USA</p>
+          </div>
+          <div>
+            <h3 className="text-lg font-bold">Follow Us</h3>
+            <p className="mt-2 text-sm">
+              <a href="#" className="hover:underline">Facebook</a>
+            </p>
+            <p className="text-sm">
+              <a href="#" className="hover:underline">Twitter</a>
+            </p>
+            <p className="text-sm">
+              <a href="#" className="hover:underline">LinkedIn</a>
+            </p>
+          </div>
+        </div>
+        <div className="text-center mt-6 text-sm">
+          © 2024 Your Company. All Rights Reserved.
+        </div>
+      </footer>
+
     </div>
   )
 }
