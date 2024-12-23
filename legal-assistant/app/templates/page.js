@@ -10,18 +10,6 @@ export default function RegTemplate() {
       link: 'lease',
     },
     {
-      image: '/images/lease.png',
-      heading: 'Lease',
-      buttonText: 'Get Started',
-      link: 'lease',
-    },
-    {
-      image: '/images/lease.png',
-      heading: 'Lease',
-      buttonText: 'Get Started',
-      link: 'lease',
-    },
-    {
       image: '/images/name.png',
       heading: 'Name Change',
       buttonText: 'Get Started',

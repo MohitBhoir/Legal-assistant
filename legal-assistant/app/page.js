@@ -51,8 +51,8 @@ const Hero = () => {
       >
         {/* <div className="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-sm"></div> */}
         <div className="bg-black bg-opacity-30 p-8 rounded-md text-white max-w-lg mx-3">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">Welcome to Our Service</h1>
-          <p className="text-lg md:text-xl">Discover the best solutions tailored for your needs. Let us guide you to success!</p>
+          <h1 className="text-4xl md:text-6xl font-bold mb-4">Welcome to Legal Assistant</h1>
+          <p className="text-lg md:text-xl">provides administrative and research support to lawyers, aiding in case preparation, document management, and client communication.</p>
         </div>
       </div>
 

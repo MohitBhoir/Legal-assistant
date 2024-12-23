@@ -14,6 +14,22 @@ export default function Navbar() {
     });
     return () => unsubscribe();
   }, []);
+
+  // Close the menu on route change
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setIsOpen(false);
+    };
+
+    window.addEventListener("popstate", handleRouteChange);
+    window.addEventListener("hashchange", handleRouteChange);
+
+    return () => {
+      window.removeEventListener("popstate", handleRouteChange);
+      window.removeEventListener("hashchange", handleRouteChange);
+    };
+  }, []);
+
   return (
     <nav className="w-full fixed top-0 left-0 z-50 bg-transparent backdrop-blur-xl">
       <div className="container mx-auto flex items-center justify-between px-4 py-4">
