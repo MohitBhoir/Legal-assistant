@@ -70,6 +70,12 @@ export default function Navbar() {
                 Templates
               </Link>
               <Link
+                href="/forum"
+                className="block px-4 py-2 text-white md:inline text-xl hover:text-cyan-200 hover:text-3xl transition-all easy-in-out delay-100"
+              >
+                Forum
+              </Link>
+              <Link
                 href="/lawyer"
                 className="block px-4 py-2 text-xl text-white md:inline hover:text-cyan-200 hover:text-3xl transition-all easy-in-out delay-100"
               >
