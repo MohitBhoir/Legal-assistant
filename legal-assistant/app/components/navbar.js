@@ -17,8 +17,8 @@ export default function Nav() {
           <Navbar.Toggle />
         </div>
       ) : (
-        <div className="flex md:order-2">
-          <Button href="/profile" className="border-2 border-blue-500 text-blue-500 px-4 py-2 sm:px-6 sm:py-3 rounded-full text-sm sm:text-lg font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300 shadow-lg hover:shadow-2xl w-full sm:w-auto mx-3">
+        <div className="flex md:order-2 gap-4">
+          <Button href="/profile" className="border-2 bg-transparent border-blue-500 text-blue-500 rounded-full text-sm sm:text-xl font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300 shadow-lg hover:shadow-2xl w-full sm:w-auto ">
             Profile
           </Button>
           <UserButton className="mx-3" />

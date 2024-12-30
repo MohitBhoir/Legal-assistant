@@ -33,7 +33,7 @@ export default function IPCCheck() {
 
   return (
     <div className="min-h-screen  p-6 flex flex-col items-center">
-      <h1 className="text-3xl font-bold text-white mb-6">
+      <h1 className="text-3xl font-bold text-black text-center mb-6">
         Search IPC Details by Section Code
       </h1>
       <form

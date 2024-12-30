@@ -76,7 +76,7 @@ const Hero = () => {
           </button>
 
           {/* Demo Video Button */}
-          <button className="border-2 border-orange-500 text-orange-500 px-4 py-2 sm:px-6 sm:py-3 rounded-full text-sm sm:text-lg font-semibold hover:bg-orange-500 hover:text-white transition-all duration-300 shadow-lg hover:shadow-2xl flex items-center w-full sm:w-auto">
+          <button className="border-2 border-orange-500 text-orange-500 px-4 py-2 sm:px-6 sm:py-3 rounded-full text-sm sm:text-lg font-semibold hover:bg-orange-500 hover:text-white transition-all duration-300 shadow-lg hover:shadow-2xl flex items-center justify-center w-full sm:w-auto">
             <FaPlay className="w-5 h-5 sm:w-6 sm:h-6 mr-2" /> {/* Adjusted icon size */}
             Demo Video
           </button>

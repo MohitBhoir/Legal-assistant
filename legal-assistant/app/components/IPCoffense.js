@@ -36,19 +36,19 @@ export default function Home() {
 
   return (
     <div className="min-h-screen  p-6 flex flex-col items-center">
-      <h1 className="text-3xl font-bold text-white mb-6">
+      <h1 className="text-3xl font-bold text-black mb-6">
         Find Similar Offenses
       </h1>
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg"
       >
-        <input
+        <textarea
           type="text"
           placeholder="Enter offense"
           value={inputOffense}
           onChange={(e) => setInputOffense(e.target.value)}
-          className="w-full border border-gray-300 p-3 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full border border-gray-300 p-3 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 h-32"
         />
         <button
           type="submit"
@@ -58,7 +58,7 @@ export default function Home() {
         </button>
       </form>
       {error && <p className="text-red-600 mt-4">{error}</p>}
-      <ul className="mt-6 w-full max-w-lg overflow-y-auto max-h-96">
+      <ul className="mt-6 w-full max-w-lg overflow-y-auto max-h-96 no-scrollbar">
         {results.map((result, index) => (
           <li
             key={index}
