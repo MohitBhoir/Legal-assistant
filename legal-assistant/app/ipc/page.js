@@ -1,6 +1,14 @@
+'use client'
 import Link from 'next/link';
-
+import { useUser } from '@clerk/nextjs';
 export default function IpcCheck() {
+  const { isSignedIn, user, isLoaded } = useUser()
+
+  if (!isLoaded || !isSignedIn) {
+    // Handle loading state
+    return null
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-[rgb(3,70,148)] text-white">
       <div className="text-center space-y-6">

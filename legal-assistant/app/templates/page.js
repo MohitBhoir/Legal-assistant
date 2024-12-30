@@ -1,7 +1,16 @@
+"use client"
 import React from 'react';
 import Link from 'next/link';
+import { useUser } from '@clerk/nextjs';
 
 export default function RegTemplate() {
+  const { isSignedIn, user, isLoaded } = useUser()
+
+  if (!isLoaded || !isSignedIn) {
+    // Handle loading state
+    return null
+  }
+
   const features = [
     {
       image: '/images/lease.png',
@@ -22,14 +31,13 @@ export default function RegTemplate() {
       link: 'property',
     },
   ];
-
   return (
     <section className=" mt-[92px] w-full h-auto flex flex-col justify-center">
       <div className="py-4 px-6 mx-auto max-w-screen-lg text-center lg:py-14">
-        <h1 className="mb-8 text-3xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">
+        <h1 className="mb-8 text-3xl font-extrabold tracking-tight leading-none text-black md:text-5xl lg:text-6xl">
           Explore Our Features
         </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 justify-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
           {features.map((feature, index) => (
             <div
               key={index}

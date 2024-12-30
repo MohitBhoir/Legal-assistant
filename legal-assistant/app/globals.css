@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 body {
-    @apply bg-chelsea min-h-screen;
+    @apply bg-white min-h-screen;
 }

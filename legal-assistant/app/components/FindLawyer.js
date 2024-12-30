@@ -10,13 +10,18 @@ export default function FindLawyer() {
   const [selectedAction, setSelectedAction] = useState("default");
   const [results, setResults] = useState([]);
   const [error, setError] = useState(null);
+  const [selectedCase, setSelectedCase] = useState(null);
+  const [caseresults, setCaseResults] = useState({
+    verdict: "",
+    reason: "",
+    corrected_df: [],
+  });
 
   useEffect(() => {
     pdfjsLib.GlobalWorkerOptions.workerSrc =
       "//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js";
   }, []);
 
-  // Function to extract text from PDF using pdf.js
   const extractTextFromPdf = async (pdfFile) => {
     try {
       const arrayBuffer = await pdfFile.arrayBuffer();
@@ -26,7 +31,7 @@ export default function FindLawyer() {
       for (let i = 0; i < pdf.numPages; i++) {
         const page = await pdf.getPage(i + 1);
         const content = await page.getTextContent();
-        const pageText = content.items.map(item => item.str).join(" ");
+        const pageText = content.items.map((item) => item.str).join(" ");
         text += pageText + " ";
       }
 
@@ -69,9 +74,6 @@ export default function FindLawyer() {
     e.preventDefault();
     setError(null);
 
-    console.log(selectedAction);
-    console.log(input);
-
     if (selectedAction === "findSimilarLawyer") {
       try {
         const response = await fetch("/api/lawyers", {
@@ -92,8 +94,37 @@ export default function FindLawyer() {
         setError(err.message);
       }
     } else {
-      console.log("case verdict");
+      try {
+        const response = await fetch("/api/verdict", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ user_input: input }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch verdict and similar cases");
+        }
+
+        const data = await response.json();
+        setCaseResults({
+          verdict: data.verdict || "",
+          reason: data.reason || "",
+          corrected_df: data.corrected_df || [],
+        });
+      } catch (err) {
+        setError(err.message);
+      }
     }
+  };
+
+  const handleViewCase = (caseData) => {
+    setSelectedCase(caseData);
+  };
+
+  const handleClosePopup = () => {
+    setSelectedCase(null);
   };
 
   return (
@@ -155,7 +186,9 @@ export default function FindLawyer() {
               Select a service
             </option>
             <option value="findSimilarLawyer">Find Similar Lawyer</option>
-            <option value="findCase">Find Similar Cases/Find Case Verdict</option>
+            <option value="findCase">
+              Find Similar Cases/Find Case Verdict
+            </option>
           </select>
         </div>
         <button
@@ -166,34 +199,96 @@ export default function FindLawyer() {
         </button>
       </form>
       {error && <p className="text-red-600 mt-4">{error}</p>}
+      {selectedAction == "findSimilarLawyer" && (
+        <ul className="mt-6 w-full max-w-lg overflow-y-auto max-h-96">
+          {results.map((result, index) => (
+            <li
+              key={index}
+              className="bg-white shadow-sm rounded-lg p-4 mb-4 border-l-4 border-indigo-500"
+            >
+              <p className="text-gray-700">
+                <strong className="text-indigo-700">Name:</strong> {result.name}
+              </p>
+              <p className="text-gray-700">
+                <strong className="text-indigo-700">Practice Area:</strong>{" "}
+                {result.practice_area}
+              </p>
+              <p className="text-gray-700">
+                <strong className="text-indigo-700">Contact:</strong>{" "}
+                {result.contact}
+              </p>
+              <p className="text-gray-700">
+                <strong className="text-indigo-700">Email:</strong>{" "}
+                {result.email}
+              </p>
+            </li>
+          ))}
+        </ul>
+      )}
+      {selectedAction === "findCase" && caseresults.verdict != "" && (
+        <div className="p-6 bg-gray-50 min-h-screen">
+          <div className="bg-white p-6 shadow-md rounded-md mb-8">
+            <h2 className="text-2xl font-bold text-gray-800">Verdict</h2>
+            <p className="text-lg text-gray-700 mt-4">{caseresults.verdict}</p>
+            <h3 className="text-xl font-semibold text-gray-800 mt-6">Reason</h3>
+            <p className="text-lg text-gray-700 mt-2">{caseresults.reason}</p>
+          </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {caseresults.corrected_df.length > 0 ? (
+              caseresults.corrected_df.map((caseItem, index) => (
+                <div
+                  key={index}
+                  className="bg-white p-4 shadow-md rounded-md flex flex-col justify-between"
+                >
+                  <h4 className="text-xl font-bold text-gray-800">
+                    {caseItem.Title}
+                  </h4>
+                  <p className="text-sm text-gray-600 mt-2">
+                    Date: {caseItem.Date}
+                  </p>
+                  <p className="text-sm text-gray-600 mt-1">
+                    Verdict: {caseItem.Verdict}
+                  </p>
+                  <button
+                    onClick={() => handleViewCase(caseItem)}
+                    className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+                  >
+                    View Case
+                  </button>
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-600">No cases available to display.</p>
+            )}
+          </div>
 
-      {/* will change depending upon the result  */}
-
-      
-      {/* <ul className="mt-6 w-full max-w-lg overflow-y-auto max-h-96">
-        {results.map((result, index) => (
-          <li
-            key={index}
-            className="bg-white shadow-sm rounded-lg p-4 mb-4 border-l-4 border-indigo-500"
-          >
-            <p className="text-gray-700">
-              <strong className="text-indigo-700">Name:</strong> {result.name}
-            </p>
-            <p className="text-gray-700">
-              <strong className="text-indigo-700">Practice Area:</strong>{" "}
-              {result.practice_area}
-            </p>
-            <p className="text-gray-700">
-              <strong className="text-indigo-700">Contact:</strong>{" "}
-              {result.contact}
-            </p>
-            <p className="text-gray-700">
-              <strong className="text-indigo-700">Email:</strong> {result.email}
-            </p>
-          </li>
-        ))}
-      </ul> */}
+          {selectedCase && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+              <div className="bg-white p-6 rounded-md shadow-lg w-11/12 md:w-2/3 lg:w-1/2 relative">
+                <button
+                  onClick={handleClosePopup}
+                  className="absolute top-4 right-4 text-gray-600 hover:text-gray-800"
+                >
+                  &times;
+                </button>
+                <h4 className="text-2xl font-bold text-gray-800">
+                  {selectedCase.Title}
+                </h4>
+                <p className="text-sm text-gray-600 mt-2">
+                  Date: {selectedCase.Date}
+                </p>
+                <p className="text-sm text-gray-600 mt-1">
+                  Verdict: {selectedCase.Verdict}
+                </p>
+                <p className="text-sm text-gray-600 mt-4">
+                  {selectedCase.Summary}
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
