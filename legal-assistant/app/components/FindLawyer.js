@@ -3,9 +3,11 @@
 import { useState, useEffect } from "react";
 import * as mammoth from "mammoth";
 import * as pdfjsLib from "pdfjs-dist/webpack";
+import Loader from "./Loader";
 
 export default function FindLawyer() {
   const [inputType, setInputType] = useState("text");
+  const [loader,setLoader]=useState(false)
   const [input, setInput] = useState("");
   const [selectedAction, setSelectedAction] = useState("default");
   const [results, setResults] = useState([]);
@@ -76,6 +78,7 @@ export default function FindLawyer() {
 
     if (selectedAction === "findSimilarLawyer") {
       try {
+        setLoader(true)
         const response = await fetch("/api/lawyers", {
           method: "POST",
           headers: {
@@ -84,6 +87,9 @@ export default function FindLawyer() {
           body: JSON.stringify({ query: input }),
         });
 
+        if(response.ok){
+           setLoader(false)
+        }
         if (!response.ok) {
           throw new Error("Failed to fetch lawyer details");
         }
@@ -95,6 +101,7 @@ export default function FindLawyer() {
       }
     } else {
       try {
+        setLoader(true)
         const response = await fetch("/api/verdict", {
           method: "POST",
           headers: {
@@ -103,6 +110,9 @@ export default function FindLawyer() {
           body: JSON.stringify({ user_input: input }),
         });
 
+        if(response.ok){
+            setLoader(false)
+        }
         if (!response.ok) {
           throw new Error("Failed to fetch verdict and similar cases");
         }
@@ -200,7 +210,7 @@ export default function FindLawyer() {
       </form>
       {error && <p className="text-red-600 mt-4">{error}</p>}
       {selectedAction == "findSimilarLawyer" && (
-        <ul className="mt-6 w-full max-w-lg overflow-y-auto max-h-96">
+         setLoader ? <Loader/> : <ul className="mt-6 w-full max-w-lg overflow-y-auto max-h-96">
           {results.map((result, index) => (
             <li
               key={index}
