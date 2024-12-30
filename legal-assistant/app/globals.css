@@ -1,7 +1,15 @@
+@import 'flowbite/dist/flowbite.min.css';  /* Flowbite styles */
+@import 'tailwindcss/tailwind.css';  /* Tailwind styles */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+
 body {
     @apply bg-white min-h-screen;
+}
+
+.custom-button{
+    @apply text-indigo-900 drop-shadow-sm hover:text-orange-500 text-lg md:text-xl hover:-translate-y-1 transition-all
 }

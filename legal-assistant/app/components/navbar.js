@@ -1,36 +1,47 @@
 "use client";
 
 import { UserButton, useUser } from "@clerk/nextjs";
-import { Button, Navbar, Avatar, Dropdown } from "flowbite-react";
+import { Button, Navbar } from "flowbite-react";
 import { useAuth } from "@clerk/nextjs";
 
 export default function Nav() {
   const { userId } = useAuth();
-  const {user} = useUser()
-   return (
-    <Navbar fluid rounded className="h-auto">
-      <Navbar.Brand href="/">Logo</Navbar.Brand>
+  const { user } = useUser();
+
+  return (
+    <Navbar fluid rounded className="h-auto sticky top-0 z-50 bg-white shadow-md">
+      <Navbar.Brand href="/" className="text-3xl font-bold text-indigo-900">Logo</Navbar.Brand>
       {!userId ? (
-      <div className="flex md:order-2">
-      <Button href="/sign-up">Get started</Button>
-      <Navbar.Toggle />
-    </div>
+        <div className="flex md:order-2">
+          <Button href="/sign-up" className="border-2 bg-transparent border-blue-500 text-blue-500 px-2 py-2 sm:px-2 sm:py-2 rounded-full text-sm sm:text-xl font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300 shadow-lg hover:shadow-2xl w-full sm:w-auto ">Get started</Button>
+          <Navbar.Toggle />
+        </div>
       ) : (
         <div className="flex md:order-2">
-          <Button href="/profile" className="mx-3">Profile</Button>
-          <UserButton className="mx-3"/>
-        <Navbar.Toggle />
-      </div>
-      )} 
+          <Button href="/profile" className="border-2 border-blue-500 text-blue-500 px-4 py-2 sm:px-6 sm:py-3 rounded-full text-sm sm:text-lg font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300 shadow-lg hover:shadow-2xl w-full sm:w-auto mx-3">
+            Profile
+          </Button>
+          <UserButton className="mx-3" />
+          <Navbar.Toggle />
+        </div>
+      )}
 
-      <Navbar.Collapse >
-        <Navbar.Link  className= "text-xl" href="/" active>
-          Home
+      <Navbar.Collapse>
+        <Navbar.Link className="text-xl  custom-button" href="/" >
+          <span className="custom-button">Home</span>
         </Navbar.Link>
-        <Navbar.Link className= "text-xl" href="#">About</Navbar.Link>
-        <Navbar.Link className= "text-xl" href="/templates">Templates</Navbar.Link>
-        <Navbar.Link className= "text-xl" href="/lawyer">Lawyer</Navbar.Link>
-        <Navbar.Link  className= "text-xl"href="/ipc">IPC</Navbar.Link>
+        <Navbar.Link className="text-xl  custom-button" href="#">
+          <span className="custom-button">About</span>
+        </Navbar.Link>
+        <Navbar.Link className="text-xl  custom-button" href="/templates">
+          <span className="custom-button">Templates</span>
+        </Navbar.Link>
+        <Navbar.Link className="text-xl  custom-button" href="/lawyer">
+          <span className="custom-button">Lawyer</span>
+        </Navbar.Link>
+        <Navbar.Link className="text-xl  custom-button" href="/ipc">
+          <span className="custom-button">IPC</span>
+        </Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
   );

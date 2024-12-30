@@ -21,6 +21,30 @@ export default {
           700: '#0f766e', // Tailwind's cyan-700
         },
     },
+    animation: {
+        'line-up': 'lineUp 6s linear infinite',
+        'line-down': 'lineDown 6s linear infinite',
+        'line-left': 'lineLeft 6s linear infinite',
+        'line-right': 'lineRight 6s linear infinite',
+      },
+      keyframes: {
+        lineUp: {
+          '0%': { transform: 'translateY(100%)' },
+          '100%': { transform: 'translateY(-100%)' },
+        },
+        lineDown: {
+          '0%': { transform: 'translateY(-100%)' },
+          '100%': { transform: 'translateY(100%)' },
+        },
+        lineLeft: {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(-100%)' },
+        },
+        lineRight: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(100%)' },
+        },
+      },
   }
   },
   plugins: [flowbite.plugin()],
