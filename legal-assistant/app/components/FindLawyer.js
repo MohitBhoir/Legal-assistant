@@ -106,7 +106,7 @@ export default function FindLawyer() {
         if (!response.ok) {
           throw new Error("Failed to fetch verdict and similar cases");
         }
-
+        
         const data = await response.json();
         setCaseResults({
           verdict: data.verdict || "",

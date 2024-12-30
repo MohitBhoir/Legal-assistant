@@ -3,6 +3,7 @@ import "./globals.css";
 import { ClerkProvider, ClerkLoaded, ClerkLoading } from "@clerk/nextjs";
 import Nav from "./components/navbar";
 import { dark } from "@clerk/themes";
+import Footer from "./components/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +27,7 @@ export default function RootLayout({ children }) {
               <div className="flex flex-col h-screen">
                 <Nav/>
                 {children}
+                <Footer/>
               </div>
             </div>
           </ClerkLoaded>
