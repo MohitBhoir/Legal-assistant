@@ -13,7 +13,7 @@ const Template = async ({ params }) => {
 
   return (
     <>
-      <div className="mt-[8rem] container mx-auto px-4">
+      <div className="my-[4rem] container mx-auto px-4">
         {templateName === 'lease' && <LeaseNewForm />}
         {templateName === 'name-change' && <NameChangeForm />}
         {templateName === 'property' && <PropertySale />}

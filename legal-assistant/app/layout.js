@@ -4,6 +4,7 @@ import { ClerkProvider, ClerkLoaded, ClerkLoading } from "@clerk/nextjs";
 import Nav from "./components/navbar";
 import { dark } from "@clerk/themes";
 import Footer from "./components/footer";
+import Image from "next/image";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +20,12 @@ export default function RootLayout({ children }) {
         <body className={inter.className}>
           <ClerkLoading>
             <div className="flex items-center justify-center h-screen text-2xl">
-              <img src="images/hammer.gif" className="h-[128px] w-[128px]"></img>
+                <Image 
+                src="/images/hammer.gif"
+                height={128}
+                width={128}
+                alt="hammer"
+                />
             </div>
           </ClerkLoading>
           <ClerkLoaded>
