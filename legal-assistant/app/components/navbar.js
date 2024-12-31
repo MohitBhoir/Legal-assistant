@@ -9,7 +9,7 @@ export default function Nav() {
   const { user } = useUser();
 
   return (
-    <Navbar fluid rounded className="h-auto sticky top-0 z-50 bg-white shadow-md">
+    <Navbar fluid rounded className="h-auto sticky top-0 z-50 bg-slate-200 shadow-xl">
       <Navbar.Brand href="/" className="text-3xl font-bold text-indigo-900">Logo</Navbar.Brand>
       {!userId ? (
         <div className="flex md:order-2">
@@ -41,6 +41,9 @@ export default function Nav() {
         </Navbar.Link>
         <Navbar.Link className="text-xl  custom-button" href="/ipc">
           <span className="custom-button">IPC</span>
+        </Navbar.Link>
+        <Navbar.Link className="text-xl  custom-button" href="/forum">
+          <span className="custom-button">Forum</span>
         </Navbar.Link>
       </Navbar.Collapse>
     </Navbar>

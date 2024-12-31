@@ -42,74 +42,77 @@ export default function ForumPage() {
   };
 
   return (
-    <div className="my-4 max-w-4xl mx-auto p-4 h-full">
-      <h1 className="text-2xl font-bold text-center mb-6">Public Forum</h1>
+    <div className="p-4 h-auto w-full bg-gradient-to-r from-indigo-400 to-cyan-400">
+  <h1 className="text-xl sm:text-2xl md:text-4xl font-bold text-center mb-6 text-white">
+    Public Forum
+  </h1>
 
-      {/* Search Bar and Filters */}
-      <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-        <form onSubmit={handleSearch} className="w-full md:w-auto">
-          <TextInput
-            type="text"
-            placeholder="Search Posts..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full"
-          />
-        </form>
-        <Select
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-          className="w-full md:w-auto"
-        >
-          <option value="">All Categories</option>
-          {dummyCategories.map((category) => (
-            <option key={category.id} value={category.name}>
-              {category.name}
-            </option>
-          ))}
-        </Select>
-      </div>
+  {/* Search Bar and Filters */}
+  <div className="flex flex-col sm:flex-row flex-wrap justify-between items-center mb-6 gap-4">
+    <form onSubmit={handleSearch} className="w-full sm:w-auto flex-grow">
+      <TextInput
+        type="text"
+        placeholder="Search Posts..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="w-full px-3 py-2 border rounded-lg"
+      />
+    </form>
+    <Select
+      value={selectedCategory}
+      onChange={(e) => setSelectedCategory(e.target.value)}
+      className="w-full sm:w-auto px-3 py-2 border rounded-lg"
+    >
+      <option value="">All Categories</option>
+      {dummyCategories.map((category) => (
+        <option key={category.id} value={category.name}>
+          {category.name}
+        </option>
+      ))}
+    </Select>
+  </div>
 
-      {/* List of Posts */}
-      <ul className="space-y-4">
-        {displayedPosts.map((post) => (
-          <li
-            key={post.id}
-            className="p-4 border border-gray-300 rounded-lg hover:shadow-md transition-shadow"
-          >
-            <Link href={`/forum/posts/${post.id}`}>
-              <span className="text-lg font-semibold text-blue-600 hover:underline">
-                {post.title}
-              </span>
-            </Link>
-            <p className="text-sm text-gray-600">{post.category}</p>
-            <p className="mt-2 text-gray-700">{post.description}</p>
-          </li>
-        ))}
-      </ul>
+  {/* List of Posts */}
+  <ul className="space-y-4">
+    {displayedPosts.map((post) => (
+      <li
+        key={post.id}
+        className="p-4 border rounded-lg hover:shadow-md transition-shadow"
+      >
+        <Link href={`/forum/posts/${post.id}`}>
+          <span className="text-base sm:text-lg font-semibold text-white lg:text-2xl hover:underline">
+            {post.title}
+          </span>
+        </Link>
+        <p className="text-xl text-[rgb(3,70,148)]">{post.category}</p>
+        <p className="mt-2 text-sm sm:text-base text-gray-700">
+          {post.description}
+        </p>
+      </li>
+    ))}
+  </ul>
 
-      {/* Pagination */}
-      <div className="flex justify-center items-center gap-4 mt-6 ">
-        <button
-          disabled={currentPage === 1}
-          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-          className="px-4 py-2 bg-blue-500 text-white rounded-lg disabled:bg-gray-300"
-        >
-          Previous
-        </button>
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          disabled={currentPage === totalPages}
-          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-          className="px-4 py-2 bg-blue-500 text-white rounded-lg disabled:bg-gray-300"
-        >
-          Next
-        </button>
-      </div>
+  {/* Pagination */}
+  <div className="flex justify-center items-center gap-4 mt-6 flex-wrap">
+    <button
+      disabled={currentPage === 1}
+      onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+      className="px-3 py-2 bg-[rgb(3,70,148)] text-white text-sm sm:text-base rounded-lg disabled:bg-gray-600"
+    >
+      Previous
+    </button>
+    <span className="text-sm sm:text-base">
+      Page {currentPage} of {totalPages}
+    </span>
+    <button
+      disabled={currentPage === totalPages}
+      onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+      className="px-3 py-2 bg-[rgb(3,70,148)] text-white text-sm sm:text-base rounded-lg disabled:bg-gray-600"
+    >
+      Next
+    </button>
+  </div>
+</div>
 
-      
-    </div>
   );
 }

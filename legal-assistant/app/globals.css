@@ -11,7 +11,7 @@ body {
 }
 
 .custom-button{
-    @apply text-indigo-900 drop-shadow-sm hover:text-orange-500 text-lg md:text-xl hover:-translate-y-1 transition-all
+    @apply text-indigo-900 drop-shadow-sm hover:text-sky-600 text-lg md:text-xl hover:scale-110 transition-all duration-200
 }
 
 @layer utilities {
@@ -44,3 +44,4 @@ body {
   .scroll-animate.is-visible {
     animation: scroll-fade-in 1s ease-in-out forwards;
   }
+

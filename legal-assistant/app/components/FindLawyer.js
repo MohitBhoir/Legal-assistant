@@ -138,78 +138,75 @@ export default function FindLawyer() {
   };
 
   return (
-    <div className="min-h-screen mt-[92px] p-6 flex flex-col items-center">
-      <h1 className="text-3xl font-bold text-white mb-6">
-        Find Info with Case Input
-      </h1>
-      <div className="mb-6">
-        <label className="mr-4 text-white font-semibold">Input Type:</label>
-        <button
-          onClick={() => setInputType("text")}
-          className={`px-4 py-2 rounded-l-md ${
-            inputType === "text" ? "bg-[rgb(3,70,148)] text-white" : "bg-gray-200"
-          }`}
-        >
-          Text Input
-        </button>
-        <button
-          onClick={() => setInputType("file")}
-          className={`px-4 py-2 rounded-r-md ${
-            inputType === "file" ? "bg-[rgb(3,70,148)] text-white" : "bg-gray-200"
-          }`}
-        >
-          Upload File
-        </button>
+    <div className="min-h-screen mt-[92px] p-4 flex flex-col items-center">
+  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6 text-center">
+    Find Info with Case Input
+  </h1>
+  <div className="mb-4 sm:mb-6 flex flex-wrap justify-center items-center gap-2">
+    <label className="text-white font-semibold mr-2">Input Type:</label>
+    <button
+      onClick={() => setInputType("text")}
+      className={`px-3 py-2 text-sm sm:text-base rounded-l-md ${
+        inputType === "text" ? "bg-[rgb(3,70,148)] text-white" : "bg-gray-200"
+      }`}
+    >
+      Text Input
+    </button>
+    <button
+      onClick={() => setInputType("file")}
+      className={`px-3 py-2 text-sm sm:text-base rounded-r-md ${
+        inputType === "file" ? "bg-[rgb(3,70,148)] text-white" : "bg-gray-200"
+      }`}
+    >
+      Upload File
+    </button>
+  </div>
+  <form
+    onSubmit={handleSubmit}
+    className="bg-white shadow-md rounded-lg p-4 sm:p-6 w-full max-w-sm sm:max-w-lg"
+  >
+    {inputType === "text" ? (
+      <input
+        type="text"
+        placeholder="Enter case"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        className="w-full border border-gray-300 p-2 sm:p-3 rounded-md mb-3 sm:mb-4 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-500"
+      />
+    ) : (
+      <div className="relative mb-3 sm:mb-4">
+        <label className="block mb-1 sm:mb-2 text-gray-900 text-sm sm:text-base">
+          Upload PDF/Word File:
+        </label>
+        <input
+          type="file"
+          accept=".pdf,.docx"
+          onChange={(e) => handleFileUpload(e.target.files[0])}
+          className="w-full border border-gray-300 p-2 sm:p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
       </div>
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg"
+    )}
+    <div className="relative mb-3 sm:mb-4">
+      <select
+        onChange={(e) => setSelectedAction(e.target.value)}
+        value={selectedAction}
+        className="w-full border border-gray-300 p-2 sm:p-3 rounded-md text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-500"
       >
-        {inputType === "text" ? (
-          <input
-            type="text"
-            placeholder="Enter case"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            className="w-full border border-gray-300 p-3 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-090"
-          />
-        ) : (
-          <div className="relative mb-4">
-            <label className="block mb-2 text-gray-900">
-              Upload PDF/Word File:
-            </label>
-            <input
-              type="file"
-              accept=".pdf,.docx"
-              onChange={(e) => handleFileUpload(e.target.files[0])}
-              className="w-full border border-gray-300 p-3 pl-6 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-900"
-            />
-          </div>
-        )}
-        <div className="relative mb-4">
-          <select
-            onChange={(e) => setSelectedAction(e.target.value)}
-            value={selectedAction}
-            className="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          >
-            <option value="default" disabled>
-              Select a service
-            </option>
-            <option value="findSimilarLawyer">Find Similar Lawyer</option>
-            <option value="findCase">
-              Find Similar Cases/Find Case Verdict
-            </option>
-          </select>
-        </div>
-        <button
-          type="submit"
-          className="w-full bg-[rgb(3,70,148)] text-white
-          hover:bg-[rgb(5,90,180)] transition duration-200 font-semibold py-2 rounded-md "
-        >
-          Submit
-        </button>
-      </form>
-      {error && <p className="text-red-600 mt-4">{error}</p>}
+        <option value="default" disabled>
+          Select a service
+        </option>
+        <option value="findSimilarLawyer">Find Similar Lawyer</option>
+        <option value="findCase">Find Similar Cases/Find Case Verdict</option>
+      </select>
+    </div>
+    <button
+      type="submit"
+      className="w-full bg-[rgb(3,70,148)] text-white text-sm sm:text-base font-semibold py-2 sm:py-3 rounded-md hover:bg-[rgb(5,90,180)] transition duration-200"
+    >
+      Submit
+    </button>
+  </form>
+  {error && <p className="text-red-600 mt-4">{error}</p>}
       {selectedAction == "findSimilarLawyer" && (
          setLoader ? <Loader/> : <ul className="mt-6 w-full max-w-lg overflow-y-auto max-h-96">
           {results.map((result, index) => (
@@ -300,6 +297,7 @@ export default function FindLawyer() {
           )}
         </div>
       )}
-    </div>
+</div>
+
   );
 }

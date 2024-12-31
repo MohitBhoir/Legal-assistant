@@ -35,19 +35,11 @@ export default function RegTemplate() {
       buttonText: 'Get Started',
       link: 'property',
     },
-    {
-      image: '/images/property.png',
-      heading: 'Property',
-      description: 'Simplify property documentation workflows effortlessly.',
-      buttonText: 'Get Started',
-      link: 'property',
-    },
   ];
 
   return (
     <section
-      className="w-full h-flex flex-col justify-center bg-cover bg-center"
-      style={{ backgroundImage: 'url(/images/doc.jpg)' }}
+      className="w-full h-flex flex-col justify-center bg-cover bg-center bg-gradient-to-r from-indigo-400 to-cyan-400"
     >
       <div className="py-4 px-6 mx-auto max-w-screen-lg text-center lg:py-14">
         <h1 className="mb-8 text-2xl font-extrabold tracking-tight leading-none text-white md:text-3xl lg:text-4xl">

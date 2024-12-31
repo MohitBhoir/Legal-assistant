@@ -30,6 +30,7 @@
     "react-redux": "^9.2.0",
     "socket.io-client": "^4.8.1",
     "svix": "^1.44.0",
+    "swiper": "^11.1.15",
     "three": "^0.171.0"
   },
   "devDependencies": {

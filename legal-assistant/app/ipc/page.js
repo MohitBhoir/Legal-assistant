@@ -39,17 +39,16 @@ export default function IpcCheck() {
   
 
   return (
-    <div className="relative bg-gradient-to-b from-sky-200 to-sky-50 min-h-screen h-screen flex items-center justify-center bg-cover bg-center"
-    style={{ backgroundImage: 'url(/images/ipc.jpg)' }}>
+    <div className="relative bg-gradient-to-r from-indigo-400 to-cyan-400 min-h-screen h-screen flex items-center justify-center bg-cover bg-center">
   {/* Main Content */}
   <div className="relative z-10 text-center space-y-6 px-4">
-    <h1 className="text-2xl font-extrabold tracking-tight leading-none text-[rgb(3,70,148)] md:text-3xl lg:text-4xl">IPC Check</h1>
+    <h1 className="text-2xl font-extrabold tracking-tight leading-none text-white md:text-3xl lg:text-4xl">IPC Check</h1>
     <p className="text-base md:text-lg text-gray-700">Choose an option below:</p>
 
     {/* Card Container */}
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 justify-center">
       {/* Card 1 */}
-      <div className="flex flex-col items-center bg-white text-[rgb(3,70,148)] bg-opacity-80 shadow-md rounded-lg p-6 md:p-8 backdrop-blur-md ">
+      <div className="flex flex-col items-center bg-white text-[rgb(3,70,148)] bg-opacity-80 shadow-md rounded-lg p-2 md:p-8  hover:scale-105 transition-transform">
         <h2 className="text-3xl md:text-4xl font-extrabold mb-4">Enter IPC</h2>
         <p className="text-gray-600 text-center text-sm md:text-base mb-6">
           Input the IPC code to find detailed information about its corresponding legal provisions.
@@ -63,7 +62,7 @@ export default function IpcCheck() {
       </div>
 
       {/* Card 2 */}
-      <div className="flex flex-col items-center bg-white text-[rgb(3,70,148)] bg-opacity-80 shadow-md rounded-lg p-6 md:p-8 backdrop-blur-md ">
+      <div className="flex flex-col items-center bg-white text-[rgb(3,70,148)] bg-opacity-80 shadow-md rounded-lg p-6 md:p-8  hover:scale-105 transition-transform">
         <h2 className="text-3xl md:text-4xl font-extrabold mb-4">Enter Offense</h2>
         <p className="text-gray-600 text-center text-sm md:text-base mb-6">
           Input the details of an offense to find applicable IPC codes and legal insights.

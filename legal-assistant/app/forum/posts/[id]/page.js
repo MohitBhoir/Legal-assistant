@@ -58,13 +58,13 @@ export default function PostDetailsPage({ params }) {
   }
 
   return (
-    <div className="max-w-6xl mx-auto p-4 flex flex-col lg:flex-row gap-6">
+    <div className="max-w-6xl mx-auto p-4 flex flex-col lg:flex-row gap-6 bg-gradient-to-r from-indigo-400 to-cyan-400 m-3 rounded-md">
       
 
       {/* Post Details and Comments (RHS for larger screens) */}
       <div className="lg:w-2/3">
         <div className="bg-gray-100 p-4 rounded-lg mb-6">
-          <h1 className="text-2xl font-bold mb-4">{post.title}</h1>
+          <h1 className="text-2xl font-bold mb-4 text-[rgb(3,70,148)]">{post.title}</h1>
           <p className="text-sm text-gray-600 mb-2">Category: {post.category}</p>
           <p className="text-gray-700 mb-4">{post.description}</p>
           <div>
@@ -98,12 +98,12 @@ export default function PostDetailsPage({ params }) {
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               placeholder="Write your comment here..."
-              className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(3,70,148)]"
               rows={5}
             />
             <button
               type="submit"
-              className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+              className="w-full px-4 py-2 bg-[rgb(3,70,148)] text-white rounded-lg hover:bg-[rgb(5,90,180)] transition duration-200"
             >
               Submit
             </button>
