@@ -1,11 +1,34 @@
 'use client';
 
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import Navbar from './components/navbar'
 import { FaPlay } from 'react-icons/fa';
+import Image from "next/image";
 
 
 const Hero = () => {
+   useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+          } else {
+            entry.target.classList.remove("is-visible");
+          }
+        });
+      },
+      { threshold: 0.1 } // Trigger when 10% of the element is visible
+    );
+
+    const elements = document.querySelectorAll(".scroll-animate");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
+
+
    const testimonials = [
     {
       name: 'John Doe',
@@ -46,7 +69,7 @@ const Hero = () => {
   return (
     <div>
 
-      <div className="relative overflow-hidden bg-gradient-to-b from-sky-50 to-sky-200 h-screen">
+      <div className="relative overflow-hidden bg-gradient-to-b from-sky-200 to-sky-50 h-screen">
       {/* Animated Background Lines */}
       <div className="absolute inset-0">
         {/* Line 1 */}
@@ -59,6 +82,7 @@ const Hero = () => {
         <div className="absolute h-[2px] w-full bg-orange-200 animate-line-right top-2/3 sm:top-3/4 md:top-2/3"></div>
       </div>
 
+      
       {/* Content */}
         <div className="relative flex items-center justify-center w-full h-full z-10 text-center">
       <div className="bg-transparent bg-opacity-30 p-8 rounded-md text-white max-w-full mx-3">
@@ -83,36 +107,86 @@ const Hero = () => {
         </div>
       </div>
     </div>
+</div>
 
-
-    </div>
-
-      {/* Section with Grid */}
-      <section className="py-12 bg-transparent">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl md:text-4xl font-bold text-center mb-8 text-white">Our Features</h2>
-          <div className="flex overflow-x-auto gap-4">
-            <div className="grid grid-cols-4 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full min-w-[800px]">
-              <div className="bg-white bg-opacity-70 shadow-md rounded-md p-4 backdrop-blur-md">
-                <h3 className="text-lg font-semibold">Feature 1</h3>
-                <p className="mt-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia maiores repellat laborum voluptas? Voluptates, doloremque aliquam velit accusantium quibusdam error?</p>
-              </div>
-              <div className="bg-white bg-opacity-70 shadow-md rounded-md p-4 backdrop-blur-md">
-                <h3 className="text-lg font-semibold">Feature 2</h3>
-                <p className="mt-2">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laboriosam rem architecto maiores deserunt fugiat sed aperiam repellendus aut! Vitae, est!</p>
-              </div>
-              <div className="bg-white bg-opacity-70 shadow-md rounded-md p-4 backdrop-blur-md">
-                <h3 className="text-lg font-semibold">Feature 3</h3>
-                <p className="mt-2">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque repellendus tempora magnam iste commodi, enim dolores sit excepturi itaque similique.</p>
-              </div>
-              <div className="bg-white bg-opacity-70 shadow-md rounded-md p-4 backdrop-blur-md">
-                <h3 className="text-lg font-semibold">Feature 4</h3>
-                <p className="mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse sit ab at autem. Impedit repellat accusantium, porro pariatur at quas.</p>
-              </div>
+   {/* Features Boxes */}
+       <section className="py-12 bg-transparent">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-2xl md:text-4xl font-bold text-center mb-8 text-white">Our Features</h2>
+        <div className="space-y-12">
+          {/* Feature 1 */}
+          <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-12 opacity-0 transition-opacity duration-700 ease-in-out scroll-animate">
+            <Image
+              src="/path-to-image1.jpg"
+              alt="Feature 1 Image"
+              width={500}
+              height={300}
+              className="w-full md:w-1/2 h-auto rounded-lg shadow-lg"
+            />
+            <div className="bg-white bg-opacity-70 shadow-md rounded-md p-6 backdrop-blur-md w-full md:w-1/2">
+              <h3 className="text-lg font-semibold">Feature 1</h3>
+              <p className="mt-2">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia maiores repellat laborum voluptas? Voluptates, doloremque aliquam velit accusantium quibusdam error?
+              </p>
             </div>
           </div>
+
+          {/* Feature 2 */}
+          <div className="flex flex-col md:flex-row-reverse items-center md:items-start gap-6 md:gap-12 opacity-0 transition-opacity duration-700 ease-in-out scroll-animate">
+            <Image
+              src="/path-to-image2.jpg"
+              alt="Feature 2 Image"
+              width={500}
+              height={300}
+              className="w-full md:w-1/2 h-auto rounded-lg shadow-lg"
+            />
+            <div className="bg-white bg-opacity-70 shadow-md rounded-md p-6 backdrop-blur-md w-full md:w-1/2">
+              <h3 className="text-lg font-semibold">Feature 2</h3>
+              <p className="mt-2">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laboriosam rem architecto maiores deserunt fugiat sed aperiam repellendus aut! Vitae, est!
+              </p>
+            </div>
+          </div>
+
+          {/* Feature 3 */}
+          <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-12 opacity-0 transition-opacity duration-700 ease-in-out scroll-animate">
+            <Image
+              src="/path-to-image3.jpg"
+              alt="Feature 3 Image"
+              width={500}
+              height={300}
+              className="w-full md:w-1/2 h-auto rounded-lg shadow-lg"
+            />
+            <div className="bg-white bg-opacity-70 shadow-md rounded-md p-6 backdrop-blur-md w-full md:w-1/2">
+              <h3 className="text-lg font-semibold">Feature 1</h3>
+              <p className="mt-2">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia maiores repellat laborum voluptas? Voluptates, doloremque aliquam velit accusantium quibusdam error?
+              </p>
+            </div>
+          </div>
+
+          {/* Feature 4 */}
+          <div className="flex flex-col md:flex-row-reverse items-center md:items-start gap-6 md:gap-12 opacity-0 transition-opacity duration-700 ease-in-out scroll-animate">
+            <Image
+              src="/path-to-image4.jpg"
+              alt="Feature 4 Image"
+              width={500}
+              height={300}
+              className="w-full md:w-1/2 h-auto rounded-lg shadow-lg"
+            />
+            <div className="bg-white bg-opacity-70 shadow-md rounded-md p-6 backdrop-blur-md w-full md:w-1/2">
+              <h3 className="text-lg font-semibold">Feature 2</h3>
+              <p className="mt-2">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laboriosam rem architecto maiores deserunt fugiat sed aperiam repellendus aut! Vitae, est!
+              </p>
+            </div>
+          </div>
+          
         </div>
-      </section>
+      </div>
+    </section>
+
+
       {/* Testimonials Carousel */}
       <section className="py-12 bg-black bg-opacity-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

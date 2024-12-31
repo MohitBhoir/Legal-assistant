@@ -57,7 +57,7 @@ export default function NameChangeForm() {
 
   return (
     <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-md space-y-6">
-      <h1 className="text-2xl font-semibold text-center">Affidavit for Change of Name</h1>
+      <h1 className="text-2xl font-semibold text-center text-[rgb(3,70,148)]">Affidavit for Change of Name</h1>
 
       <div className="space-y-4">
         <input
@@ -195,7 +195,8 @@ export default function NameChangeForm() {
         />
       </div>
 
-      <button type="submit" className="w-full p-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600">
+      <button type="submit" className="w-full p-4 bg-[rgb(3,70,148)] text-white
+          hover:bg-[rgb(5,90,180)] transition duration-200 font-semibold rounded-md ">
         Generate Affidavit
       </button>
     </form>

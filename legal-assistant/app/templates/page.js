@@ -32,16 +32,18 @@ export default function RegTemplate() {
     },
   ];
   return (
-    <section className=" mt-[92px] w-full h-auto flex flex-col justify-center">
+    <section className=" w-full h-flex flex-col justify-center bg-gradient-to-b from-sky-200 to-sky-50">
+
+      
       <div className="py-4 px-6 mx-auto max-w-screen-lg text-center lg:py-14">
-        <h1 className="mb-8 text-3xl font-extrabold tracking-tight leading-none text-black md:text-5xl lg:text-6xl">
-          Explore Our Features
+        <h1 className="mb-8 text-2xl font-extrabold tracking-tight leading-none text-[rgb(3,70,148)] md:text-3xl lg:text-4xl">
+          Document Templates
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
           {features.map((feature, index) => (
             <div
               key={index}
-              className="flex flex-col items-center bg-white text-black bg-opacity-80 shadow-md rounded-lg p-6 backdrop-blur-md hover:shadow-lg hover:bg-opacity-90 transition-all hover:scale-105"
+              className="flex flex-col items-center bg-white text-[rgb(3,70,148)] bg-opacity-80 shadow-md rounded-lg p-6 backdrop-blur-md"
             >
               <img
                 src={feature.image}
@@ -52,7 +54,7 @@ export default function RegTemplate() {
               <Link href={`/templates/${feature.link}`}>
                 
                   <button
-                    className="text-white inline-flex justify-center items-center py-2 px-5 mt-4 text-base font-medium bg-teal-600 rounded-lg hover:bg-teal-500 transition-all"
+                    className="bg-[rgb(3,70,148)] text-white inline-flex justify-center items-center py-2 px-5 mt-4 text-base font-medium hover:bg-[rgb(5,90,180)] transition duration-200 rounded-lg"
                   >
                     {feature.buttonText}
                     <svg
