@@ -73,13 +73,13 @@ const Hero = () => {
       {/* Animated Background Lines */}
       <div className="absolute inset-0">
         {/* Line 1 */}
-        <div className="absolute w-[2px] h-full bg-orange-200 animate-line-up left-1/4 sm:left-1/3 md:left-1/4"></div>
+        <div className="absolute w-[3px] h-full bg-orange-200 animate-line-up left-1/4 sm:left-1/3 md:left-1/4"></div>
         {/* Line 2 */}
-        <div className="absolute w-[2px] h-full bg-orange-200 animate-line-down left-1/2 sm:left-2/3 md:left-1/2"></div>
+        <div className="absolute w-[3px] h-full bg-orange-200 animate-line-down left-1/2 sm:left-2/3 md:left-1/2"></div>
         {/* Line 3 */}
-        <div className="absolute h-[2px] w-full bg-orange-200 animate-line-left top-1/3 sm:top-1/4 md:top-1/3"></div>
+        <div className="absolute h-[3px] w-full bg-orange-200 animate-line-left top-1/3 sm:top-1/4 md:top-1/3"></div>
         {/* Line 4 */}
-        <div className="absolute h-[2px] w-full bg-orange-200 animate-line-right top-2/3 sm:top-3/4 md:top-2/3"></div>
+        <div className="absolute h-[3px] w-full bg-orange-200 animate-line-right top-2/3 sm:top-3/4 md:top-2/3"></div>
       </div>
 
       
@@ -117,14 +117,14 @@ const Hero = () => {
           {/* Feature 1 */}
           <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-12 opacity-0 transition-opacity duration-700 ease-in-out scroll-animate">
             <Image
-              src="/path-to-image1.jpg"
+              src="/images/findLawyer.png"
               alt="Feature 1 Image"
               width={500}
               height={300}
               className="w-full md:w-1/2 h-auto rounded-lg shadow-lg"
             />
-            <div className="bg-white bg-opacity-70 shadow-md rounded-md p-6 backdrop-blur-md w-full md:w-1/2">
-              <h3 className="text-lg font-semibold">Feature 1</h3>
+            <div className="bg-gradient-to-b to-sky-50 from-white bg-opacity-70 shadow-lg rounded-md p-6 backdrop-blur-md w-full md:w-1/2">
+              <h3 className="text-2xl font-semibold text-[rgb(3,70,148)]">Assistance in legal research</h3>
               <p className="mt-2">
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia maiores repellat laborum voluptas? Voluptates, doloremque aliquam velit accusantium quibusdam error?
               </p>
@@ -134,14 +134,14 @@ const Hero = () => {
           {/* Feature 2 */}
           <div className="flex flex-col md:flex-row-reverse items-center md:items-start gap-6 md:gap-12 opacity-0 transition-opacity duration-700 ease-in-out scroll-animate">
             <Image
-              src="/path-to-image2.jpg"
+              src="/images/ipc.png"
               alt="Feature 2 Image"
               width={500}
               height={300}
               className="w-full md:w-1/2 h-auto rounded-lg shadow-lg"
             />
-            <div className="bg-white bg-opacity-70 shadow-md rounded-md p-6 backdrop-blur-md w-full md:w-1/2">
-              <h3 className="text-lg font-semibold">Feature 2</h3>
+            <div className="bg-gradient-to-b to-sky-50 from-white bg-opacity-70 shadow-lg rounded-md p-6 backdrop-blur-md w-full md:w-1/2">
+              <h3 className="text-2xl font-semibold text-[rgb(3,70,148)]">IPC Similarities</h3>
               <p className="mt-2">
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laboriosam rem architecto maiores deserunt fugiat sed aperiam repellendus aut! Vitae, est!
               </p>
@@ -151,14 +151,14 @@ const Hero = () => {
           {/* Feature 3 */}
           <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-12 opacity-0 transition-opacity duration-700 ease-in-out scroll-animate">
             <Image
-              src="/path-to-image3.jpg"
+              src="/images/template.png"
               alt="Feature 3 Image"
               width={500}
               height={300}
               className="w-full md:w-1/2 h-auto rounded-lg shadow-lg"
             />
-            <div className="bg-white bg-opacity-70 shadow-md rounded-md p-6 backdrop-blur-md w-full md:w-1/2">
-              <h3 className="text-lg font-semibold">Feature 1</h3>
+            <div className="bg-gradient-to-b to-sky-50 from-white bg-opacity-70 shadow-lg rounded-md p-6 backdrop-blur-md w-full md:w-1/2">
+              <h3 className="text-lg font-semibold">Template Document Generation</h3>
               <p className="mt-2">
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia maiores repellat laborum voluptas? Voluptates, doloremque aliquam velit accusantium quibusdam error?
               </p>
@@ -174,8 +174,8 @@ const Hero = () => {
               height={300}
               className="w-full md:w-1/2 h-auto rounded-lg shadow-lg"
             />
-            <div className="bg-white bg-opacity-70 shadow-md rounded-md p-6 backdrop-blur-md w-full md:w-1/2">
-              <h3 className="text-lg font-semibold">Feature 2</h3>
+            <div className="bg-gradient-to-b from-white to-sky-50 bg-opacity-70 shadow-lg rounded-md p-6 backdrop-blur-md w-full md:w-1/2">
+              <h3 className="text-lg font-semibold">Help Forum</h3>
               <p className="mt-2">
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laboriosam rem architecto maiores deserunt fugiat sed aperiam repellendus aut! Vitae, est!
               </p>

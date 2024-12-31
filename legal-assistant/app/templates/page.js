@@ -30,9 +30,22 @@ export default function RegTemplate() {
       buttonText: 'Get Started',
       link: 'property',
     },
+    {
+      image: '/images/property.png',
+      heading: 'Property',
+      buttonText: 'Get Started',
+      link: 'property',
+    },
+    {
+      image: '/images/property.png',
+      heading: 'Property',
+      buttonText: 'Get Started',
+      link: 'property',
+    },
   ];
   return (
-    <section className=" w-full h-flex flex-col justify-center bg-gradient-to-b from-sky-200 to-sky-50">
+    <section className=" w-full h-flex flex-col justify-center bg-cover bg-center"
+    style={{ backgroundImage: 'url(/images/doc.jpg)' }}>
 
       
       <div className="py-4 px-6 mx-auto max-w-screen-lg text-center lg:py-14">

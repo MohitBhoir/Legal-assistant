@@ -2,7 +2,7 @@ import { UserProfile } from "@clerk/nextjs"
 
 const Profile = () => {
   return (
-    <div className="flex justify-center mt-6"><UserProfile/></div>
+    <div className="bg-gradient-to-b from-sky-200 to-sky-50"><div className="flex justify-center m-4"><UserProfile/></div></div>
   )
 }
 

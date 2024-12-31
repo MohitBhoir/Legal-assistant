@@ -36,7 +36,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen  p-6 flex flex-col items-center">
-      <h1 className="text-3xl font-bold text-black mb-6">
+      <h1 className="text-3xl font-bold text-[rgb(3,70,148)] mb-6">
         Find Similar Offenses
       </h1>
       <form
@@ -52,7 +52,8 @@ export default function Home() {
         />
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-600 transition"
+          className="w-full bg-[rgb(3,70,148)] text-white
+          hover:bg-[rgb(5,90,180)] transition duration-200 py-2 rounded-md"
         >
           Search
         </button>
@@ -65,15 +66,15 @@ export default function Home() {
             className="bg-white shadow-sm rounded-lg p-4 mb-4 border-l-4 border-blue-500"
           >
             <p className="text-gray-700">
-              <strong className="text-blue-700">Offense:</strong>{" "}
+              <strong className="text-[rgb(3,70,148)]">Offense:</strong>{" "}
               {result.Offense}
             </p>
             <p className="text-gray-700">
-              <strong className="text-blue-700">Punishment:</strong>{" "}
+              <strong className="text-[rgb(3,70,148)]">Punishment:</strong>{" "}
               {result.Punishment}
             </p>
             <p className="text-gray-700">
-              <strong className="text-blue-700">Section:</strong>{" "}
+              <strong className="text-[rgb(3,70,148)]">Section:</strong>{" "}
               {result.Section}
             </p>
           </li>

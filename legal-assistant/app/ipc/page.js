@@ -39,7 +39,8 @@ export default function IpcCheck() {
   
 
   return (
-    <div className="relative bg-gradient-to-b from-sky-200 to-sky-50 min-h-screen h-screen flex items-center justify-center">
+    <div className="relative bg-gradient-to-b from-sky-200 to-sky-50 min-h-screen h-screen flex items-center justify-center bg-cover bg-center"
+    style={{ backgroundImage: 'url(/images/ipc.jpg)' }}>
   {/* Main Content */}
   <div className="relative z-10 text-center space-y-6 px-4">
     <h1 className="text-2xl font-extrabold tracking-tight leading-none text-[rgb(3,70,148)] md:text-3xl lg:text-4xl">IPC Check</h1>

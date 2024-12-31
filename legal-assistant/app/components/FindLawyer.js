@@ -147,7 +147,7 @@ export default function FindLawyer() {
         <button
           onClick={() => setInputType("text")}
           className={`px-4 py-2 rounded-l-md ${
-            inputType === "text" ? "bg-indigo-500 text-white" : "bg-gray-200"
+            inputType === "text" ? "bg-[rgb(3,70,148)] text-white" : "bg-gray-200"
           }`}
         >
           Text Input
@@ -155,7 +155,7 @@ export default function FindLawyer() {
         <button
           onClick={() => setInputType("file")}
           className={`px-4 py-2 rounded-r-md ${
-            inputType === "file" ? "bg-indigo-500 text-white" : "bg-gray-200"
+            inputType === "file" ? "bg-[rgb(3,70,148)] text-white" : "bg-gray-200"
           }`}
         >
           Upload File
@@ -171,7 +171,7 @@ export default function FindLawyer() {
             placeholder="Enter case"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="w-full border border-gray-300 p-3 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full border border-gray-300 p-3 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-090"
           />
         ) : (
           <div className="relative mb-4">
@@ -182,7 +182,7 @@ export default function FindLawyer() {
               type="file"
               accept=".pdf,.docx"
               onChange={(e) => handleFileUpload(e.target.files[0])}
-              className="w-full border border-gray-300 p-3 pl-6 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full border border-gray-300 p-3 pl-6 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-900"
             />
           </div>
         )}
@@ -203,7 +203,8 @@ export default function FindLawyer() {
         </div>
         <button
           type="submit"
-          className="w-full bg-indigo-500 text-white font-semibold py-2 rounded-md hover:bg-indigo-600 transition"
+          className="w-full bg-[rgb(3,70,148)] text-white
+          hover:bg-[rgb(5,90,180)] transition duration-200 font-semibold py-2 rounded-md "
         >
           Submit
         </button>
