@@ -11,7 +11,7 @@ const page = () => {
   }
   
   return (
-    <div className="relative bg-cover bg-center h-screen bg-gradient-to-r from-indigo-400 to-cyan-400" >
+    <div className=" bg-cover bg-center bg-gradient-to-r from-indigo-400 to-cyan-400" >
     <FindLawyer/>
   </div>
 
