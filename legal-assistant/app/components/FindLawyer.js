@@ -7,7 +7,7 @@ import Loader from "./Loader";
 
 export default function FindLawyer() {
   const [inputType, setInputType] = useState("text");
-  const [loader,setLoader]=useState(false)
+  const [isLoading, setIsLoading] = useState(false); 
   const [input, setInput] = useState("");
   const [selectedAction, setSelectedAction] = useState("default");
   const [results, setResults] = useState([]);
@@ -75,10 +75,10 @@ export default function FindLawyer() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-
+    setIsLoading(true);
     if (selectedAction === "findSimilarLawyer") {
       try {
-        setLoader(true)
+        // setLoader(true)
         const response = await fetch("/api/lawyers", {
           method: "POST",
           headers: {
@@ -87,9 +87,7 @@ export default function FindLawyer() {
           body: JSON.stringify({ query: input }),
         });
 
-        if(response.ok){
-           setLoader(false)
-        }
+  
         if (!response.ok) {
           throw new Error("Failed to fetch lawyer details");
         }
@@ -98,10 +96,12 @@ export default function FindLawyer() {
         setResults(data.lawyers || []);
       } catch (err) {
         setError(err.message);
+      } finally{
+        setIsLoading(false);
       }
     } else {
       try {
-        setLoader(true)
+        // setLoader(true)
         const response = await fetch("/api/verdict", {
           method: "POST",
           headers: {
@@ -110,9 +110,6 @@ export default function FindLawyer() {
           body: JSON.stringify({ user_input: input }),
         });
 
-        if(response.ok){
-            setLoader(false)
-        }
         if (!response.ok) {
           throw new Error("Failed to fetch verdict and similar cases");
         }
@@ -126,6 +123,9 @@ export default function FindLawyer() {
       } catch (err) {
         setError(err.message);
       }
+      finally{
+        setIsLoading(false);
+      }
     }
   };
 
@@ -138,7 +138,7 @@ export default function FindLawyer() {
   };
 
   return (
-    <div className="min-h-screen mt-[92px] p-4 flex flex-col items-center">
+    <div className="mt-[92px] p-4 flex flex-col items-center">
   <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6 text-center">
     Find Info with Case Input
   </h1>
@@ -206,9 +206,9 @@ export default function FindLawyer() {
       Submit
     </button>
   </form>
+  {isLoading && <Loader />}
   {error && <p className="text-red-600 mt-4">{error}</p>}
-      {selectedAction == "findSimilarLawyer" && (
-         setLoader ? <Loader/> : <ul className="mt-6 w-full max-w-lg overflow-y-auto max-h-96">
+      {!isLoading && selectedAction == "findSimilarLawyer" && ( <ul className="my-6 w-full max-w-lg overflow-y-auto max-h-96 no-scrollbar">
           {results.map((result, index) => (
             <li
               key={index}
@@ -233,8 +233,8 @@ export default function FindLawyer() {
           ))}
         </ul>
       )}
-      {selectedAction === "findCase" && caseresults.verdict != "" && (
-        <div className="p-6 bg-gray-50 min-h-screen">
+      {!isLoading && selectedAction === "findCase" && caseresults.verdict != "" && (
+        <div className="p-6  h-auto">
           <div className="bg-white p-6 shadow-md rounded-md mb-8">
             <h2 className="text-2xl font-bold text-gray-800">Verdict</h2>
             <p className="text-lg text-gray-700 mt-4">{caseresults.verdict}</p>
