@@ -1,14 +1,14 @@
 "use client";
 import React from 'react';
 import Link from 'next/link';
-import { useUser } from '@clerk/nextjs';
+import { auth } from '@/auth';
 
-export default function RegTemplate() {
-  const { isSignedIn, user, isLoaded } = useUser();
-  console.log(user);
+export default async function RegTemplate() {
+  const session = await auth()
+  console.log(session.user);
   
 
-  if (!isLoaded || !isSignedIn) {
+  if (!session || !session?.user) {
     // Handle loading state
     return null;
   }

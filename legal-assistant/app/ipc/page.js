@@ -1,11 +1,11 @@
 'use client'
 import Link from 'next/link';
-import { useUser } from '@clerk/nextjs';
+import { auth } from '@/auth'
 
-export default function IpcCheck() {
-  const { isSignedIn, user, isLoaded } = useUser();
+export default async function IpcCheck() {
+  const session = await auth()
 
-  if (!isLoaded || !isSignedIn) {
+  if (!session || !session?.user) {
     // Handle loading state
     return (
       <div className="min-h-screen h-screen flex flex-col md:flex-row items-center justify-center bg-gradient-to-b from-sky-50 to-sky-200 px-4">

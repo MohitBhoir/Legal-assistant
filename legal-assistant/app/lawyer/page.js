@@ -1,11 +1,11 @@
 "use client"
 import FindLawyer from "../components/FindLawyer"
-import { useUser } from "@clerk/nextjs"
+import { auth } from "@/auth"
 
-const page = () => {
-  const { isSignedIn, user, isLoaded } = useUser()
+const page = async () => {
+  const session = await auth()
 
-  if (!isLoaded || !isSignedIn) {
+  if (!session || !session?.user) {
     // Handle loading state
     return null
   }

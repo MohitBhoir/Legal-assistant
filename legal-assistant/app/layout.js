@@ -1,8 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ClerkProvider, ClerkLoaded, ClerkLoading } from "@clerk/nextjs";
 import Nav from "./components/navbar";
-import { dark } from "@clerk/themes";
 import Footer from "./components/footer";
 import Image from "next/image";
 
@@ -15,10 +13,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
-          <ClerkLoading>
             <div className="flex items-center justify-center h-screen text-2xl">
                 <Image 
                 src="/images/hammer.gif"
@@ -27,8 +23,6 @@ export default function RootLayout({ children }) {
                 alt="hammer"
                 />
             </div>
-          </ClerkLoading>
-          <ClerkLoaded>
             <div className="w-full mx-auto">
               <div className="flex flex-col h-screen">
                 <Nav/>
@@ -36,9 +30,7 @@ export default function RootLayout({ children }) {
                 <Footer/>
               </div>
             </div>
-          </ClerkLoaded>
         </body>
       </html>
-    </ClerkProvider>
   );
 }

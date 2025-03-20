@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { TextInput, Select, Button } from 'flowbite-react';
-import { useUser } from '@clerk/nextjs';
+import { auth } from '@/auth';
 const dummyCategories = [
   { id: 1, name: 'Family Law' },
   { id: 2, name: 'Criminal Law' },
@@ -17,10 +17,10 @@ const dummyPosts = [
   { id: 5, title: 'Fraud Allegations', category: 'Criminal Law', description: 'Steps to take if accused of fraud.' },
 ];
 
-export default function ForumPage() {
-  const { isSignedIn, user, isLoaded } = useUser()
+export default async function ForumPage() {
+  const session = await auth()
 
-  if (!isLoaded || !isSignedIn) {
+  if (!session || !session?.user) {
     // Handle loading state
     return null
   }
