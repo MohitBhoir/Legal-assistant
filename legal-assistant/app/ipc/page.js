@@ -1,9 +1,9 @@
 'use client'
 import Link from 'next/link';
-import { auth } from '@/auth'
+import { useSession } from 'next-auth/react';
 
-export default async function IpcCheck() {
-  const session = await auth()
+export default function IpcCheck() {
+  const { data: session } = useSession()
 
   if (!session || !session?.user) {
     // Handle loading state

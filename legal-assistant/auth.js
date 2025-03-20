@@ -1,12 +1,10 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import { connectDB } from "@/lib/mongodb";
-import User from "@/models/user";
-// import { MongoDBAdapter } from "@auth/mongodb-adapter";
-// import client from "@/utils/mongodb"
-// import clientPromise from "@/lib/mongodb"; // If using MongoDB Atlas with NextAuth adapter
+import { connectDB } from "@/utils/mongodb";
+import User from "@/models/User";
 
-export const {handler , signIn , signOut , auth} = NextAuth({
+
+export const { handlers, signIn, signOut, auth } = NextAuth({
     providers: [
         GoogleProvider({
             clientId: process.env.AUTH_GOOGLE_ID,
@@ -15,34 +13,39 @@ export const {handler , signIn , signOut , auth} = NextAuth({
     ],
     // adapter: MongoDBAdapter(clientPromise), // Uses MongoDB as the database for NextAuth
     callbacks: {
-        async signIn({ account , profile , user }) {
-            await connectDB();
-            console.log('account : ' + account)
-            console.log('profile : ' + profile)
-            console.log('user : ' + user)
-
-            // Check if the user already exists in MongoDB
-            const existingUser = await User.findOne({ email: user.email });
-
-            if (!existingUser) {
-                // If new user, store details in MongoDB
-                const newUser = new User({
-                    email: user.email,
-                    name: user.name,
-                    image: user.image,
-                    createdAt: new Date(),
-                });
-
-                await newUser.save();
-            }
-
-            return true; // Allow sign-in
-        },
-        async session({ session, user }) {
-            // Attach user ID to the session
-            const dbUser = await User.findOne({ email: session.user.email });
-            session.user.id = dbUser?._id;
+        async session({ session }) {
+            const sessionUser = await User.findOne({
+                email: session.user.email
+            })
+            
+            session.user.id = sessionUser._id.toString()
+            console.log(session , session.user);
+            
             return session;
         },
+        async signIn({ profile }) {
+            // this funtion returns true(in case of success) / false(in case of failure)
+    
+            // these are serverless functions -> basically they are lambda function which when called spins up a server every time and connects to the database
+            try {
+                await connectDB()
+                // chaeck if the user already exists
+                const userExists = await User.findOne({email: profile.email})
+    
+                // if not create a new user in db
+                if (!userExists) {
+                    const user = new User({
+                        username: profile.name.replace(" " , "").toLowerCase(),
+                        email: profile.email,
+                        image: profile.picture
+                    })
+                    await user.save()
+                }
+                return true;
+            } catch (err) {
+                console.log(err.message);
+                return false            
+            }
+        }
     }
 });

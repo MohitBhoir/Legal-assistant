@@ -1,9 +1,9 @@
 "use client"
 import FindLawyer from "../components/FindLawyer"
-import { auth } from "@/auth"
+import { useSession } from "next-auth/react"
 
-const page = async () => {
-  const session = await auth()
+const page = () => {
+  const { data: session } = useSession()
 
   if (!session || !session?.user) {
     // Handle loading state

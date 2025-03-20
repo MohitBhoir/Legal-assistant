@@ -1,7 +1,6 @@
 'use client';
 
 import React,{useState,useEffect} from 'react'
-import Navbar from './components/navbar'
 import { FaPlay } from 'react-icons/fa';
 import Image from "next/image";
 import TestimonialsCarousel from './components/Reviews';

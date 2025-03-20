@@ -7,4 +7,7 @@ const UserSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
 });
 
-export default mongoose.models.User || mongoose.model("User", UserSchema);
+// Ensure the model is only created once
+const User = mongoose.models?.User || mongoose.model("User", UserSchema);
+
+export default User;

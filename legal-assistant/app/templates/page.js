@@ -1,11 +1,11 @@
 "use client";
 import React from 'react';
 import Link from 'next/link';
-import { auth } from '@/auth';
+import {useSession} from 'next-auth/react'
 
-export default async function RegTemplate() {
-  const session = await auth()
-  console.log(session.user);
+export default function RegTemplate() {
+  const { data: session } = useSession()
+  console.log(session?.user);
   
 
   if (!session || !session?.user) {
