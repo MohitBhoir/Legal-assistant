@@ -9,7 +9,7 @@ import PropertySale from "@/app/components/PropertySale";
 
 const Template = async ({ params }) => {
   const { id: templateName } = await params // Fetch template id from URL
-  console.log(templateName);
+  // console.log(templateName);
 
   return (
     <>

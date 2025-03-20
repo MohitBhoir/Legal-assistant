@@ -13,6 +13,27 @@ export default function RegTemplate() {
     return null;
   }
 
+  const handleDownload = async (templateName) => {
+    
+    const response = await fetch(`/api/generate-pdf/${templateName}`);
+  
+    // Check if the response is successful
+    if (response.ok) {
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${link}_template.docx`;  // Set the file extension to .docx
+      link.click();
+      
+      // Clean up the URL object after download
+      window.URL.revokeObjectURL(url);
+    } else {
+      console.error("Error generating the Word document.");
+    }
+  };
+
   const features = [
     {
       image: '/images/lease.png',
@@ -20,6 +41,8 @@ export default function RegTemplate() {
       description: 'Generate professional lease documents quickly and effortlessly.',
       buttonText: 'Get Started',
       link: 'lease',
+      emptyDownloadButtonText: "Download Preview",
+      downloadLinkText: "lease"
     },
     {
       image: '/images/name.png',
@@ -27,6 +50,8 @@ export default function RegTemplate() {
       description: 'Create customized name change forms with ease.',
       buttonText: 'Get Started',
       link: 'name-change',
+      emptyDownloadButtonText: "Download Preview",
+      downloadLinkText: "affidavit-namechange"
     },
     {
       image: '/images/property.png',
@@ -34,6 +59,8 @@ export default function RegTemplate() {
       description: 'Manage all property-related documentations in one place.',
       buttonText: 'Get Started',
       link: 'property',
+      emptyDownloadButtonText: "Download Preview",
+      downloadLinkText: "sale-aggreement"
     },
   ];
 
@@ -58,28 +85,36 @@ export default function RegTemplate() {
               />
               <h3 className="text-lg font-semibold">{feature.heading}</h3>
               <p className="text-sm text-gray-700 text-center my-3">{feature.description}</p>
-              <Link href={`/templates/${feature.link}`}>
+              <div className='flex gap-4 justify-center items-center'>
                 <button
                   className="bg-[rgb(3,70,148)] text-white inline-flex justify-center items-center py-2 px-5 mt-4 text-base font-medium hover:bg-[rgb(5,90,180)] transition duration-200 rounded-lg"
+                  onClick={e => handleDownload(feature.downloadLinkText)}
                 >
-                  {feature.buttonText}
-                  <svg
-                    className="w-4 h-4 ml-2 rtl:rotate-180"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 14 10"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M1 5h12m0 0L9 1m4 4L9 9"
-                    />
-                  </svg>
+                  {feature.emptyDownloadButtonText}
                 </button>
-              </Link>
+                <Link href={`/templates/${feature.link}`}>
+                  <button
+                    className="bg-[rgb(3,70,148)] text-white inline-flex justify-center items-center py-2 px-5 mt-4 text-base font-medium hover:bg-[rgb(5,90,180)] transition duration-200 rounded-lg"
+                  >
+                    {feature.buttonText}
+                    <svg
+                      className="w-4 h-4 ml-2 rtl:rotate-180"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 14 10"
+                    >
+                      <path
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M1 5h12m0 0L9 1m4 4L9 9"
+                      />
+                    </svg>
+                  </button>
+                </Link>
+              </div>
             </div>
           ))}
         </div>

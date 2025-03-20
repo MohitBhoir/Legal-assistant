@@ -99,3 +99,28 @@ export async function POST(req) {
     );
   }
 }
+
+export async function GET(req) {
+  try {
+    // Define the file path to the DOCX template
+    const filePath = path.join(process.cwd(), "public", "templates", "Commercial Lease Agreement template.docx");
+
+    // Read the file
+    const content = fs.readFileSync(filePath);
+
+    // Send the file as a response
+    return new NextResponse(content, {
+      status: 200,
+      headers: {
+        "Content-Type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "Content-Disposition": "attachment; filename=Commercial_Lease_Agreement_Template.docx"
+      }
+    });
+  } catch (error) {
+    console.error("Error sending DOCX template:", error);
+    return NextResponse.json(
+      { error: "Unable to send the DOCX template", details: error.message },
+      { status: 500 }
+    );
+  }
+}
