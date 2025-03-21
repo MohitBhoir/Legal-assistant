@@ -5,7 +5,7 @@ export async function POST(request) {
     try {
         const { user_input } = await request.json(); // Expect the request JSON to include user_input
 
-        const fastApiResponse = await fetch("http://127.0.0.1:9000/process_case", {
+        const fastApiResponse = await fetch("http://127.0.0.1:9000/input_case", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
