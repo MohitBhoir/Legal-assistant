@@ -2,10 +2,17 @@
 import React from 'react';
 import Link from 'next/link';
 import {useSession} from 'next-auth/react'
+import Loader from '../components/Loader';
 
 export default function RegTemplate() {
-  const { data: session } = useSession()
+  const { data: session , status } = useSession()
   console.log(session?.user);
+
+  if(status === 'loading') {
+    return (
+      <Loader />
+    )
+  }
   
 
   if (!session || !session?.user) {
