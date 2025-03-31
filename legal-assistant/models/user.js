@@ -1,24 +1,13 @@
-import { Schema, model, models } from "mongoose";
+import mongoose from "mongoose";
 
-const UserSchema = new Schema({
-  clerkId: {
-    type: String,
-    unique: true,
-  },
-  email: {
-    type: String,
-    required: true,
-  },
-  username: {
-    type: String,
-    required: true,
-  },
-  createdAt: {
-    type: Date, 
-    default: Date.now 
-  },
+const UserSchema = new mongoose.Schema({
+    email: { type: String, required: true, unique: true },
+    name: { type: String },
+    image: { type: String },
+    createdAt: { type: Date, default: Date.now },
 });
 
-const User = models.User || model("User", UserSchema);
+// Ensure the model is only created once
+const User = mongoose.models?.User || mongoose.model("User", UserSchema);
 
-export default User
+export default User;
