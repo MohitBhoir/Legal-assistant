@@ -18,6 +18,15 @@ export default function FindLawyer() {
     reason: "",
     corrected_df: [],
   });
+  const [caseType, setCaseType] = useState("");
+  const [caseDetails, setCaseDetails] = useState({});
+
+  const fieldMappings = {
+    Civil: ["Dispute", "Parties", "Evidence"],
+    Criminal: ["Offense", "Incident", "Evidence", "Witnesses"],
+    Family: ["Issue", "Relationship", "Dispute", "Evidence"],
+    Employment: ["Dispute", "JobRole", "Duration", "Evidence"],
+  };
 
   useEffect(() => {
     pdfjsLib.GlobalWorkerOptions.workerSrc =
@@ -137,6 +146,34 @@ export default function FindLawyer() {
     setSelectedCase(null);
   };
 
+  const handleCaseTypeChange = (e) => {
+    setCaseType(e.target.value);
+    setCaseDetails({});
+    setInput(""); // Reset input when case type changes
+  };
+  const handleInputChange = (field, value) => {
+    const updatedDetails = { ...caseDetails, [field]: value };
+    setCaseDetails(updatedDetails);
+    generateTemplate(updatedDetails);
+  };
+
+  const generateTemplate = (data) => {
+    let template = "";
+
+    if (caseType === "Civil") {
+      template = `A dispute has arisen between ${data.parties || "..."} regarding ${data.dispute || "..."}. Available evidence: ${data.evidence || "none"}.`;
+    } else if (caseType === "Criminal") {
+      template = `A ${data.offense || "..."} case occurred involving ${data.incident || "..."}. Evidence: ${data.evidence || "none"}. Witnesses: ${data.witnesses || "unknown"}.`;
+    } else if (caseType === "Family") {
+      template = `A family matter concerning ${data.issue || "..."} between ${data.relationship || "..."}. Dispute details: ${data.dispute || "..."}. Evidence available: ${data.evidence || "none"}.`;
+    } else if (caseType === "Employment") {
+      template = `Employment dispute related to ${data.dispute || "..."} in the role of ${data.jobRole || "..."}. Duration of employment: ${data.duration || "..."}. Evidence provided: ${data.evidence || "none"}.`;
+    }
+
+    setInput(template);
+    console.log(template)
+  };
+
   return (
     <div className="mt-[92px] p-4 flex flex-col items-center">
   <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6 text-center">
@@ -166,13 +203,38 @@ export default function FindLawyer() {
     className="bg-white shadow-md rounded-lg p-4 sm:p-6 w-full max-w-sm sm:max-w-lg"
   >
     {inputType === "text" ? (
-      <input
-        type="text"
-        placeholder="Enter case"
+      <div className="w-full p-4">
+      <select
+        value={caseType}
+        onChange={handleCaseTypeChange}
+        className="w-full border p-2 rounded-md mb-3"
+      >
+        <option value="">Select Case Type</option>
+        {Object.keys(fieldMappings).map((type) => (
+          <option key={type} value={type}>
+            {type}
+          </option>
+        ))}
+      </select>
+
+      {caseType &&
+        fieldMappings[caseType].map((field) => (
+          <input
+            key={field}
+            type="text"
+            placeholder={field}
+            value={caseDetails[field] || ""}
+            onChange={(e) => handleInputChange(field, e.target.value)}
+            className="w-full border p-2 rounded-md mb-2"
+          />
+        ))}
+      <b>Prompt:</b>
+      <textarea
         value={input}
-        onChange={(e) => setInput(e.target.value)}
-        className="w-full border border-gray-300 p-2 sm:p-3 rounded-md mb-3 sm:mb-4 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        readOnly
+        className="w-full border p-2 rounded-md mt-3 bg-gray-100 h-30"
       />
+    </div>
     ) : (
       <div className="relative mb-3 sm:mb-4">
         <label className="block mb-1 sm:mb-2 text-gray-900 text-sm sm:text-base">
