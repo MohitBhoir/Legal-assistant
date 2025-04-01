@@ -37,7 +37,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                     const user = new User({
                         username: profile.name.replace(" " , "").toLowerCase(),
                         email: profile.email,
-                        image: profile.picture
+                        image: profile.image
                     })
                     await user.save()
                 }
