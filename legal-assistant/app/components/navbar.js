@@ -3,12 +3,10 @@ import { Button, Navbar } from "flowbite-react";
 import { signIn } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import Loader from "./Loader";
 
 export default function Nav() {
   const { data: session, status } = useSession();
-
-  console.log("Session Data:", session);
-  console.log("Session Status:", status);
 
   return (
     <Navbar fluid rounded className="h-auto sticky top-0 z-50 bg-slate-200 shadow-xl">
@@ -17,10 +15,8 @@ export default function Nav() {
       </Navbar.Brand>
 
       {/* Show Sign In button if user is not logged in */}
-      {status === "loading" ? (
-        <div className="flex md:order-2"> 
-          <p className="text-blue-500">Loading...</p> 
-        </div>
+      {status === 'loading' ? (
+        <Loader />
       ) : !session || !session.user ? (
         <div className="flex md:order-2">
           <Button
@@ -43,7 +39,6 @@ export default function Nav() {
               height={35}
               width={35}
             />
-            {console.log("User is logged in")}
           </div>
           <Navbar.Toggle />
         </div>

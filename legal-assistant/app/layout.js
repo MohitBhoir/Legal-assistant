@@ -21,7 +21,7 @@ export default async function RootLayout({ children }) {
           <Provider>
             <Suspense fallback={ <Loader /> }>
               <div className="w-full mx-auto">
-                <div className="flex flex-col h-screen">
+                <div className="flex flex-col h-auto">
                   <Nav/>
                   {children}
                   <Footer/>

@@ -1,96 +1,141 @@
 'use client'
-import { useState, useEffect, use } from 'react'; // Import `use` from React
+import { useState, useEffect, use } from 'react';
+import { useSession } from 'next-auth/react';
+import Image from 'next/image';
+import { formateDate } from '@/utils/data';
+import { useRouter } from 'next/navigation';
+import Loader from '@/app/components/Loader';
+import noComment from '@/public/images/no-comments.png'
 
-export default function PostDetailsPage({ params }) {
-  // Unwrap the `params` Promise using `use`
+export default function Page({ params }) {
   const unwrappedParams = use(params);
-  const { id } = unwrappedParams; // Access `id` from the unwrapped `params`
+  const { id } = unwrappedParams; // Access id from the unwrapped params
+  const { data: session, status } = useSession();
+  const router = useRouter();
 
   const [comment, setComment] = useState('');
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    // Fetch post and comments based on the id
-    const fetchPost = async () => {
-      // Replace with actual API call
-      const fetchedPost = {
-        id: id,
-        title: 'Divorce Proceedings',
-        category: 'Family Law',
-        description: 'Need help with divorce procedures in Texas.',
-        content: 'I am going through a divorce and need legal advice on how to proceed with custody and alimony agreements in Texas.',
-      };
-      setPost(fetchedPost);
+    if (status === 'unauthenticated') {
+      router.push('/');
+    }
+  }, [status]);
+
+  useEffect(() => {
+    const fetchPostById = async () => {
+      try {
+        const res = await fetch(`/api/forum/posts/${id}`);
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.error || 'Something went wrong');
+        }
+
+        setPost(data.post || {});
+        setComments(data.post.comments);
+      } catch (error) {
+        console.log('error : ' + error.message);
+      }
     };
 
-    const fetchComments = async () => {
-      // Replace with actual API call
-      const fetchedComments = [
-        {
-          id: 1,
-          author: 'Lawyer A',
-          text: 'You should consider hiring a local family lawyer experienced in Texas state laws.',
-          date: '2024-01-01',
-        },
-        {
-          id: 2,
-          author: 'Lawyer B',
-          text: 'Focus on gathering financial documents and evidence of parenting roles.',
-          date: '2024-01-02',
-        },
-      ];
-      setComments(fetchedComments);
-    };
-
-    fetchPost();
-    fetchComments();
+    if (id) {
+      fetchPostById();
+    }
   }, [id]);
 
-  const handleCommentSubmit = (e) => {
-    e.preventDefault();
-    alert(`Comment submitted: ${comment}`);
-    setComment('');
+  const handleCommentSubmit = async (e) => {
+
+    if (!comment.trim()) return;
+
+    try {
+      const res = await fetch(`/api/forum/posts/${id}/comment`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          content: comment,
+          authorId: session.user.id
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to post comment');
+      }
+
+      // setComments((prev) => [...prev, data.comment]);
+      setComment('');
+    } catch (error) {
+      console.error('Error submitting comment:', error.message);
+    }
   };
 
-  if (!post) {
-    return <div>Loading...</div>;
+  if (status === 'loading' || !post) {
+    return <Loader />;
   }
 
+  console.log(post);
+
   return (
-    <div className="max-w-6xl mx-auto p-4 flex flex-col lg:flex-row gap-6 bg-white m-3 rounded-md">
-      
-      {/* Post Details and Comments (RHS for larger screens) */}
+    <div className="min-h-[calc(100vh-94.2px)] max-w-6xl m-3 mx-auto p-4 flex flex-col lg:flex-row gap-6 bg-white md:justify-center justify-between rounded-md">
+      {/* Post Details */}
       <div className="lg:w-2/3">
-        <div className="bg-gray-100 p-4 rounded-lg mb-6">
-          <h1 className="text-2xl font-bold mb-4 text-black">{post.title}</h1>
-          <p className="text-sm text-gray-600 mb-2">Category: {post.category}</p>
-          <p className="text-gray-700 mb-4">{post.description}</p>
-          <div>
-            <h2 className="text-lg font-semibold mb-2">Details</h2>
-            <p>{post.content}</p>
+        <div className="bg-gray-50 p-6 rounded-2xl mb-6 shadow-md border border-gray-200">
+          <h1 className="text-3xl font-extrabold text-gray-900 mb-3">{post.title}</h1>
+          <div className="text-sm text-gray-500 mb-2">📂 Category: <span className="font-medium text-gray-700">{post.category.join(" , ")}</span></div>
+          <p className="text-base text-gray-700 mb-4 leading-relaxed">{post.description}</p>
+
+          <div className="mt-6">
+            <h2 className="text-xl font-semibold text-gray-800 mb-2">📝 Details</h2>
+            <p className="text-gray-600 whitespace-pre-wrap leading-relaxed">{post.content}</p>
           </div>
         </div>
 
-        <div>
+        {/* Comments */}
+        <div className="ml-3">
           <h2 className="text-lg font-semibold mb-4">Comments</h2>
           {comments.length > 0 ? (
-            comments.map((comment)  => (
-              <div key={comment.id} className="bg-white p-4 rounded-lg shadow mb-4">
-                <p className="font-semibold">{comment.author}</p>
-                <p className="text-sm text-gray-600">{comment.date}</p>
-                <p className="mt-2">{comment.text}</p>
+            comments.map((comment) => (
+              <div key={comment._id} className="bg-white p-4 rounded-lg shadow items-start flex flex-row mb-4">
+                {comment.authorId?.image && (
+                  <Image
+                    src={comment?.authorId?.image}
+                    alt={comment?.authorId?.name}
+                    className="w-10 h-10 rounded-full object-cover object-center mr-4"
+                    width={30}
+                    height={30}
+                  />
+                )}
+                <div>
+                  <p className="text-lg text-black font-bold">
+                    {session.user.id === comment?.authorId?._id ? "You" : comment?.authorId?.name}
+                  </p>
+                  <p className="text-sm text-gray-600">{formateDate(comment.createdAt)}</p>
+                  <p className="mt-2">{comment.content}</p>
+                </div>
               </div>
             ))
           ) : (
-            <p>No comments yet.</p>
+              <div className="w-full md:mt-[10rem] mt-[2rem] h-auto flex justify-center items-center">
+                <Image
+                    src={noComment}
+                    alt={'no comments yet'}
+                    height={100}
+                    width={100}
+                    className="object-contain"
+                />
+              </div>
           )}
         </div>
       </div>
 
-      {/* Comment Form (LHS for larger screens, bottom for smaller screens) */}
+      {/* Comment Form */}
       <div className="lg:w-1/3">
-        <div className="sticky top-4 bg-gray-100 p-4 rounded-lg shadow">
+        <div className="sticky top-[84.2px] bg-gray-100 p-2 rounded-lg shadow">
           <h2 className="text-lg font-semibold mb-4">Add a Comment</h2>
           <form onSubmit={handleCommentSubmit} className="flex flex-col gap-4">
             <textarea
@@ -102,7 +147,7 @@ export default function PostDetailsPage({ params }) {
             />
             <button
               type="submit"
-              className="w-full px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition duration-200"
+              className="w-full px-4 py-2 bg-[rgb(3,70,148)] text-white rounded-lg hover:opacity-90 transition duration-200"
             >
               Submit
             </button>

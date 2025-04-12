@@ -11,7 +11,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             clientSecret: process.env.AUTH_GOOGLE_SECRET,
         }),
     ],
-    // adapter: MongoDBAdapter(clientPromise), // Uses MongoDB as the database for NextAuth
     callbacks: {
         async session({ session }) {
             const sessionUser = await User.findOne({
@@ -19,7 +18,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             })
             
             session.user.id = sessionUser._id.toString()
-            console.log(session , session.user);
             
             return session;
         },
@@ -30,12 +28,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             try {
                 await connectDB()
                 // chaeck if the user already exists
+                console.log("profile : " , profile);
                 const userExists = await User.findOne({email: profile.email})
     
                 // if not create a new user in db
                 if (!userExists) {
                     const user = new User({
-                        username: profile.name.replace(" " , "").toLowerCase(),
+                        name: profile.name.replace(" " , "").toLowerCase(),
                         email: profile.email,
                         image: profile.picture
                     })
