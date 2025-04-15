@@ -8,8 +8,15 @@ export async function POST(req, { params }) {
     await connectDB();
 
     const { id: postId } = await params;
-    const body = await req.json();
-    const { content, authorId } = body;
+
+    let body;
+    try {
+      body = await req.json();
+    } catch (err) {
+      return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 });
+    }
+
+    const { content, authorId } = body || {};
 
     if (!content || !authorId || !postId) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
@@ -24,8 +31,6 @@ export async function POST(req, { params }) {
 
     await newComment.save();
 
-    console.log(newComment);
-
     // Push comment to post
     await Post.findByIdAndUpdate(postId, {
       $push: { comments: newComment._id },
@@ -33,7 +38,7 @@ export async function POST(req, { params }) {
 
     return NextResponse.json({ message: 'Comment added successfully', comment: newComment }, { status: 201 });
   } catch (error) {
-    console.error(error);
+    console.error('Server error:', error);
     return NextResponse.json({ error: 'Failed to post comment' }, { status: 500 });
   }
 }

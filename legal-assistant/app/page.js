@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { FaPlay } from 'react-icons/fa';
 import Image from "next/image";
 import TestimonialsCarousel from './components/Reviews';
+import Link from "next/link";
 
 
 const Hero = () => {
@@ -70,9 +71,12 @@ const Hero = () => {
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               {/* Get Started Button */}
-              <button className="border-2 border-blue-500 text-blue-500 px-4 py-2 sm:px-6 sm:py-3 rounded-full text-sm sm:text-lg font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300 shadow-lg hover:shadow-2xl w-full sm:w-auto">
+              <Link
+                  href={'/sign-up'}
+                  className="border-2 border-blue-500 text-blue-500 px-4 py-2 sm:px-6 sm:py-3 rounded-full text-sm sm:text-lg font-semibold hover:bg-blue-500 hover:text-white transition-all duration-300 shadow-lg hover:shadow-2xl w-full sm:w-auto"
+              >
                 Get Started
-              </button>
+              </Link>
 
               {/* Demo Video Button */}
               <button className="border-2 border-orange-500 text-orange-500 px-4 py-2 sm:px-6 sm:py-3 rounded-full text-sm sm:text-lg font-semibold hover:bg-orange-500 hover:text-white transition-all duration-300 shadow-lg hover:shadow-2xl flex items-center justify-center w-full sm:w-auto">

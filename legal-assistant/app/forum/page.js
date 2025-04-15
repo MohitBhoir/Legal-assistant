@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 import Loader from '../components/Loader';
 import { lawCategories as dummyCategories } from '@/utils/data';
 import Image from 'next/image';
+import userImage from '@/public/images/user.png'
 
 export default function ForumPage() {
   const { data: session, status } = useSession();
@@ -14,6 +15,7 @@ export default function ForumPage() {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [loadingPosts, setLoadingPosts] = useState(true);
+  console.log(session)
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -123,7 +125,7 @@ export default function ForumPage() {
                           >
                             {/* Author Image */}
                             <Image
-                              src={post.authorId?.image}
+                              src={post.authorId?.image || userImage}
                               height={40}
                               width={40}
                               alt="Author"
